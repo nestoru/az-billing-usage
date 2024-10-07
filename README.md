@@ -18,8 +18,13 @@ python fetch_usage_details.py <your sunscription id here> 2024-07-01 2024-07-31 
 Use jq command to perform all kind of querying on the data. Here are some examples.
 
 ### Grand total for July 2024
+Using price multiplied by quantity:
 ```
 cat ~/Downloads/az_usage_details_2024-07-01_2024-07-31.json | jq '[.value[] | .properties | .effectivePrice * .quantity] | add'
+```
+Using the cost in billing currency. Both answers must match:
+```
+cat ~/Downloads/usage_details_all_2024-09-01_2024-09-30.json | jq '[.value[] | .properties.costInBillingCurrency] | add'
 ```
 
 ### Total per instance name and grand total for July 2024
