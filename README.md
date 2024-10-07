@@ -24,7 +24,7 @@ cat ~/Downloads/az_usage_details_2024-07-01_2024-07-31.json | jq '[.value[] | .p
 ```
 Using the cost in billing currency. Both answers must match:
 ```
-cat ~/Downloads/usage_details_all_2024-09-01_2024-09-30.json | jq '[.value[] | .properties.costInBillingCurrency] | add'
+cat ~/Downloads/az_usage_details_2024-07-01_2024-07-31.json | jq '[.value[] | .properties.costInBillingCurrency] | add'
 ```
 
 ### Total per instance name and grand total for July 2024
