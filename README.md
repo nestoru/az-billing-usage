@@ -17,7 +17,7 @@ python fetch_usage_details.py <your sunscription id here> 2024-07-01 2024-07-31 
 ## Filtering results
 Use jq command to perform all kind of querying on the data. Here are some examples.
 
-### Grand total for July 2024
+### Grand total
 Using price multiplied by quantity:
 ```
 cat ~/Downloads/az_usage_details_2024-07-01_2024-07-31.json | jq '[.value[] | .properties | .effectivePrice * .quantity] | add'
@@ -27,7 +27,7 @@ Using the cost in billing currency. Both answers must match:
 cat ~/Downloads/az_usage_details_2024-07-01_2024-07-31.json | jq '[.value[] | .properties.costInBillingCurrency] | add'
 ```
 
-### Total per instance name and grand total for July 2024
+### Total per instance name and grand total
 ```
 cat ~/Downloads/az_usage_details_2024-07-01_2024-07-31.json | jq '
 .value |
@@ -43,4 +43,7 @@ sort_by(-.totalCost) |
     grandTotal: ($instances | map(.totalCost) | add)
 }'
 ```
-
+### Total per instance sorted by price desc
+```
+cat  /Users/nu/Downloads/usage_details_all_2024-10-01_2024-10-31.json | jq '.value | group_by(.properties.instanceName) | map({instance: .[0].properties.instanceName, resourceGroup: .[0].properties.resourceGroup, total_cost: (map(.properties.costInBillingCurrency) | add)}) | sort_by(.total_cost) | reverse'
+```
