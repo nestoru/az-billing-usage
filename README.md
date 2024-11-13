@@ -47,3 +47,8 @@ sort_by(-.totalCost) |
 ```
 cat  /Users/nu/Downloads/usage_details_all_2024-10-01_2024-10-31.json | jq '.value | group_by(.properties.instanceName) | map({instance: .[0].properties.instanceName, resourceGroup: .[0].properties.resourceGroup, total_cost: (map(.properties.costInBillingCurrency) | add)}) | sort_by(.total_cost) | reverse'
 ```
+
+### Total per instance name containing a case insensitive string value
+```
+cat ~/Downloads/usage_details_all_2024-10-01_2024-10-31.json | jq '[.value[] | select(.properties.instanceName | test("ETL"; "i")) | .properties.costInBillingCurrency] | add'
+```
