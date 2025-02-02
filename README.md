@@ -52,3 +52,15 @@ cat  /Users/nu/Downloads/usage_details_all_2024-10-01_2024-10-31.json | jq '.val
 ```
 cat ~/Downloads/usage_details_all_2024-10-01_2024-10-31.json | jq '[.value[] | select(.properties.instanceName | test("ETL"; "i")) | .properties.costInBillingCurrency] | add'
 ```
+
+### List the VM names only
+```
+jq '[.value[]
+    | select(.properties.instanceName | test("/virtualMachines/"; "i"))
+    | .properties.instanceName
+    | split("/") | last
+    | ascii_downcase]
+    | sort
+    | unique
+    | .[]' /Users/nu/Downloads/az_usage_details_2024-12-01_2024-12-31.json
+```
