@@ -64,3 +64,14 @@ jq '[.value[]
     | unique
     | .[]' /Users/nu/Downloads/az_usage_details_2024-12-01_2024-12-31.json
 ```
+
+### Cost per day for an instance name containing a case insensitive string value
+```
+jq -r '
+  [.value[] | select(.properties.instanceName | test("tsavdshare"; "i"))]
+  | group_by(.properties.date)
+  | map({date: .[0].properties.date, total: (map(.properties.costInBillingCurrency) | add)})
+  | sort_by(.date)
+  | .[] | "\(.date): $\(.total)"
+'
+```
