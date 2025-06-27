@@ -86,6 +86,41 @@ add'
 
 ## Additional handy scripts
 ```
+jq '[.value[] | select(.properties.instanceName | test("ETL"; "i")) | .properties.costInBillingCurrency] | add'
+```
+
+### List the VM names only
+```
+jq '[.value[]
+    | select(.properties.instanceName | test("/virtualMachines/"; "i"))
+    | .properties.instanceName
+    | split("/") | last
+    | ascii_downcase]
+    | sort
+    | unique
+    | .[]' /Users/nu/Downloads/az_usage_details_2024-12-01_2024-12-31.json
+```
+
+### Cost per day for an instance name containing a case insensitive string value
+```
+jq -r '
+  [.value[] | select(.properties.instanceName | test("tsavdshare"; "i"))]
+  | group_by(.properties.date)
+  | map({date: .[0].properties.date, total: (map(.properties.costInBillingCurrency) | add)})
+  | sort_by(.date)
+  | .[] | "\(.date): $\(.total)"
+'
+### Total for a resource pattern
+```
+cat ~/Downloads/az_usage_details_2024-07-01_2024-07-31.json | jq '
+.value | 
+map(select(.properties.instanceName | contains("part-of-resource-name-here"))) |
+map(.properties.effectivePrice * .properties.quantity) | 
+add'
+```
+
+## Additional handy scripts
+```
 	compare_storage_usage.py
 	compare_usage_details.py
 	compare_vm_usage.py
