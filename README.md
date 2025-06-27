@@ -74,4 +74,20 @@ jq -r '
   | sort_by(.date)
   | .[] | "\(.date): $\(.total)"
 '
+=======
+### Total for a resource pattern
+```
+cat ~/Downloads/az_usage_details_2024-07-01_2024-07-31.json | jq '
+.value | 
+map(select(.properties.instanceName | contains("part-of-resource-name-here"))) |
+map(.properties.effectivePrice * .properties.quantity) | 
+add'
+```
+
+## Additional handy scripts
+```
+	compare_storage_usage.py
+	compare_usage_details.py
+	compare_vm_usage.py
+	reservations_report.py
 ```
