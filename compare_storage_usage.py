@@ -6,12 +6,18 @@ Properly distinguishes between provisioned capacity and actual usage
 
 import json
 import sys
+import os
 from collections import defaultdict
 from datetime import datetime
 import csv
 
 def load_billing_data(file_path):
     """Load Azure billing data from JSON file"""
+    # Validate file exists
+    if not os.path.exists(file_path):
+        print(f"Error: File not found: {file_path}")
+        return []
+    
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -24,11 +30,11 @@ def load_billing_data(file_path):
             print(f"Unexpected data format in {file_path}")
             return []
             
-    except FileNotFoundError:
-        print(f"File not found: {file_path}")
-        return []
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON in {file_path}: {e}")
+        return []
+    except Exception as e:
+        print(f"Error reading {file_path}: {e}")
         return []
 
 def is_storage_related(record):
@@ -59,7 +65,7 @@ def extract_instance_name(full_path):
     """Extract resource name from Azure resource path"""
     if isinstance(full_path, str) and '/' in full_path:
         return full_path.split('/')[-1]
-    return full_path or 'unknown'
+    return str(full_path) if full_path else 'unknown'
 
 def analyze_meter_data(properties):
     """
@@ -69,7 +75,7 @@ def analyze_meter_data(properties):
     meter_category = properties.get('meterCategory', '')
     meter_subcategory = properties.get('meterSubCategory', '')
     meter_name = properties.get('meterName', '')
-    quantity = properties.get('quantity', 0)
+    quantity = float(properties.get('quantity', 0))
     unit_of_measure = properties.get('unitOfMeasure', '')
     
     # Backup services - quantity represents actual usage
@@ -144,7 +150,11 @@ def process_billing_data(records):
             
         properties = record.get('properties', {})
         instance_name = extract_instance_name(properties.get('instanceName', ''))
-        cost = float(properties.get('costInBillingCurrency', 0))
+        
+        try:
+            cost = float(properties.get('costInBillingCurrency', 0))
+        except (ValueError, TypeError):
+            cost = 0
         
         storage_type, provisioned_gb, usage_gb, billing_model = analyze_meter_data(properties)
         
@@ -297,33 +307,36 @@ def get_optimization_recommendation(cost, provisioned_gb, usage_gb, storage_type
 
 def save_csv_report(report_lines, filename):
     """Save detailed comparison report to CSV"""
-    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = [
-            'instance', 'new_cost', 'new_provisioned_gb', 'new_usage_gb',
-            'old_cost', 'old_provisioned_gb', 'old_usage_gb',
-            'cost_diff', 'provisioned_diff', 'usage_diff',
-            'storage_type', 'billing_model', 'optimization_note'
-        ]
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        
-        writer.writeheader()
-        
-        for line in report_lines:
-            writer.writerow({
-                'instance': line['instance'],
-                'new_cost': f"{line['new_cost']:.2f}",
-                'new_provisioned_gb': f"{line['new_provisioned_gb']:.0f}",
-                'new_usage_gb': f"{line['new_usage_gb']:.2f}",
-                'old_cost': f"{line['old_cost']:.2f}",
-                'old_provisioned_gb': f"{line['old_provisioned_gb']:.0f}",
-                'old_usage_gb': f"{line['old_usage_gb']:.2f}",
-                'cost_diff': f"{line['cost_diff']:.2f}",
-                'provisioned_diff': f"{line['provisioned_diff']:.0f}",
-                'usage_diff': f"{line['usage_diff']:.2f}",
-                'storage_type': line['storage_type'],
-                'billing_model': 'Provisioned' if line['is_provisioned'] else 'Usage-based',
-                'optimization_note': line['optimization_note']
-            })
+    try:
+        with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = [
+                'instance', 'new_cost', 'new_provisioned_gb', 'new_usage_gb',
+                'old_cost', 'old_provisioned_gb', 'old_usage_gb',
+                'cost_diff', 'provisioned_diff', 'usage_diff',
+                'storage_type', 'billing_model', 'optimization_note'
+            ]
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            
+            writer.writeheader()
+            
+            for line in report_lines:
+                writer.writerow({
+                    'instance': line['instance'],
+                    'new_cost': f"{line['new_cost']:.2f}",
+                    'new_provisioned_gb': f"{line['new_provisioned_gb']:.0f}",
+                    'new_usage_gb': f"{line['new_usage_gb']:.2f}",
+                    'old_cost': f"{line['old_cost']:.2f}",
+                    'old_provisioned_gb': f"{line['old_provisioned_gb']:.0f}",
+                    'old_usage_gb': f"{line['old_usage_gb']:.2f}",
+                    'cost_diff': f"{line['cost_diff']:.2f}",
+                    'provisioned_diff': f"{line['provisioned_diff']:.0f}",
+                    'usage_diff': f"{line['usage_diff']:.2f}",
+                    'storage_type': line['storage_type'],
+                    'billing_model': 'Provisioned' if line['is_provisioned'] else 'Usage-based',
+                    'optimization_note': line['optimization_note']
+                })
+    except Exception as e:
+        print(f"Error saving CSV file: {e}")
 
 def print_comparison_report(report_lines, summary_stats):
     """Print formatted comparison report with capacity vs usage"""
@@ -409,19 +422,24 @@ def main():
     
     print(f"Loading old period data from: {args.old_period_file}")
     old_records = load_billing_data(args.old_period_file)
+    if not old_records:
+        print("Error: Could not load old period data")
+        sys.exit(1)
     print(f"Loaded {len(old_records)} records from old period")
     
     print(f"Loading new period data from: {args.new_period_file}")
     new_records = load_billing_data(args.new_period_file)
-    print(f"Loaded {len(new_records)} records from new period")
-    
-    if not old_records or not new_records:
-        print("Error: Could not load billing data")
+    if not new_records:
+        print("Error: Could not load new period data")
         sys.exit(1)
+    print(f"Loaded {len(new_records)} records from new period")
     
     print("\nProcessing data...")
     old_data, old_cost, old_provisioned, old_usage = process_billing_data(old_records)
     new_data, new_cost, new_provisioned, new_usage = process_billing_data(new_records)
+    
+    print(f"Old period: {len(old_data)} storage resources, ${old_cost:.2f} total cost")
+    print(f"New period: {len(new_data)} storage resources, ${new_cost:.2f} total cost")
     
     print("\nGenerating comparison report...")
     report_lines, summary_stats = generate_comparison_report(

@@ -126,3 +126,11 @@ add'
 	compare_vm_usage.py
 	reservations_report.py
 ```
+
+### Example
+```
+python3 compare_storage_usage.py ~/Downloads/az_usage_details_2025-05-01_2025-05-31.json ~/Downloads/az_usage_details_2025-06-01_2025-06-30.json --output-csv storage_analysis.csv
+python3 compare_usage_details.py ~/Downloads "az_usage_details_[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{4}-[0-9]{2}-[0-9]{2}.json$" ~/Downloads/az_usage_details_report.csv
+python3 compare_vm_usage.py ~/Downloads/az_usage_details_2025-05-01_2025-05-31.json ~/Downloads/az_usage_details_2025-06-01_2025-06-30.json --output-csv vm_comparison.csv
+python3 reservations_report.py /Users/nu/Downloads/az_usage_details_2025-05-01_2025-05-31.json
+```
