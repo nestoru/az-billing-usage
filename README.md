@@ -1,6 +1,13 @@
 # Azure Billing
 Extract Azure billing information.
 
+## Setup
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
 ## Preconditions
 - You must be a billing admin.
 - Login to azure before running the command
