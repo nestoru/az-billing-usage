@@ -1,0 +1,472 @@
+instance,new_cost,new_provisioned_gb,new_usage_gb,old_cost,old_provisioned_gb,old_usage_gb,cost_diff,provisioned_diff,usage_diff,storage_type,billing_model,optimization_note
+cqfstorage,6674.33,0,158364.89,6150.29,0,147833.67,524.04,0,10531.22,File_Storage,Usage-based,MEDIUM: Review lifecycle policies
+NerdioBackupVault,10994.34,0,422548.37,10554.64,0,405139.46,439.70,0,17408.92,Backup,Usage-based,HIGH: Review retention policies
+cqfazfiles,2542.19,0,17458.93,2275.22,0,15660.35,266.97,0,1798.58,File_Storage,Usage-based,MEDIUM: Review lifecycle policies
+CQF-Linux-Recovery-Vault,1700.78,0,34408.49,1534.56,0,30812.79,166.23,0,3595.70,Backup,Usage-based,MEDIUM: Optimize backup frequency
+cqarchive,761.06,0,10555.21,602.69,0,6544.76,158.37,0,4010.45,"File_Storage, Storage",Usage-based,MEDIUM: Review lifecycle policies
+PlunetMSDStorage,4593.76,0,78371.92,4437.05,0,75645.13,156.71,0,2726.79,Backup,Usage-based,HIGH: Review retention policies
+cqwatcher,539.63,0,3014.55,470.04,0,2838.31,69.59,0,176.24,"File_Storage, Storage",Usage-based,HIGH: Consider archive/cool tiers
+cqwatcherint,417.14,0,1723.38,365.37,0,1479.82,51.77,0,243.56,"File_Storage, Storage",Usage-based,HIGH: Consider archive/cool tiers
+cqfstorage02-datadisk_5,287.42,16384,0.00,262.39,8192,0.00,25.03,8192,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+CQF-TEST-201-osdisk,14.74,128,0.00,0.00,0,0.00,14.74,128,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-Tenable-01_OsDisk_1_1f66ab577fdd4d75b05746940ff7a885,13.43,128,0.00,0.00,0,0.00,13.43,128,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-TEST-101-osdisk,13.33,128,0.00,0.00,0,0.00,13.33,128,0.00,VM_Disk,Provisioned,Monitor capacity needs
+aksbackup-vault-uat,120.00,0,10.00,110.35,0,9.20,9.65,0,0.80,Backup,Usage-based,Review retention settings
+aksbackup-vault-prod,108.00,0,9.00,98.69,0,8.22,9.31,0,0.78,Backup,Usage-based,Review retention settings
+CQF-TECH-104-osdisk,19.70,128,0.00,10.82,128,0.00,8.88,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+4.0.0,20.53,32,0.00,11.80,3,0.00,8.73,29,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-206-osdisk,8.63,128,0.00,0.00,0,0.00,8.63,128,0.00,VM_Disk,Provisioned,Low impact
+cqdomainstorage,7.91,0,499.07,0.00,0,0.00,7.91,0,499.07,File_Storage,Usage-based,Low impact
+AzureBackup_cqfstorage02_933511760742221441,2700.27,1746,0.00,2693.04,1798,0.00,7.23,-52,0.00,VM_Disk,Provisioned,HIGH: Review if full capacity needed
+cqfluencyrgdiag794,145.20,0,3327.89,138.04,0,3081.32,7.16,0,246.57,File_Storage,Usage-based,Monitor growth trends
+3.0.0,25.16,32,0.00,18.46,32,0.00,6.70,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH03_dataDisk0Copy,76.94,512,0.00,71.53,512,0.00,5.40,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+5.0.0,10.01,32,0.00,4.72,3,0.00,5.29,29,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-TECH-201-osdisk,8.59,128,0.00,5.86,128,0.00,2.73,0,0.00,VM_Disk,Provisioned,Low impact
+cqfluencyrgdiag656,149.57,0,4279.57,146.85,0,4205.50,2.72,0,74.07,File_Storage,Usage-based,Monitor growth trends
+memoqcqf-datadisk-000-20241027-131909,498.32,4096,0.00,495.62,4096,0.00,2.71,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+PlunetCQF-DataDisk1,76.13,512,0.00,73.44,512,0.00,2.69,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_CQwatcher-Gateway-AD-2_87961511709239,17.64,32,0.00,15.00,32,0.00,2.64,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+unifiedmspprod,17.73,0,1523.27,15.96,0,1391.87,1.77,0,131.40,File_Storage,Usage-based,Monitor growth trends
+RDSH13-OSdisk0,264.73,2048,0.00,263.02,2048,0.00,1.71,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+CQF-PROD-112-osdisk,14.27,128,0.00,12.61,128,0.00,1.66,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+powerautomate-gateway_OsDisk_1_b5047ef09a034953899721b108c292c6,1.64,128,0.00,0.00,0,0.00,1.64,128,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-123-osdisk,13.60,128,0.00,12.08,128,0.00,1.52,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-109-osdisk,14.52,128,0.00,13.04,128,0.00,1.48,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+penvm_DataDisk_0,1.48,256,0.00,0.00,0,0.00,1.48,256,0.00,VM_Disk,Provisioned,Low impact
+AVD-PROD2-GOLD-osdisk,11.09,128,0.00,9.66,128,0.00,1.43,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_msp-cqfluent-blue-01_1090717403924993,3.78,32,0.00,2.35,32,0.00,1.42,0,0.00,VM_Disk,Provisioned,Low impact
+AVD-PROD1-GOLD-osdisk,11.08,128,0.00,9.66,128,0.00,1.42,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AVD-TECH-GOLD-osdisk,11.07,128,0.00,9.66,128,0.00,1.42,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-120-osdisk,13.92,128,0.00,12.55,128,0.00,1.36,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-TEST-165-osdisk,1.36,128,0.00,0.00,0,0.00,1.36,128,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-125-osdisk,11.85,128,0.00,10.53,128,0.00,1.32,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AVD-SI-GOLD-osdisk,10.97,128,0.00,9.66,128,0.00,1.31,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-Tenable-01_OsDisk_1_61150b03decd44489b27ea767bba8bfc,1.30,256,0.00,0.00,0,0.00,1.30,256,0.00,VM_Disk,Provisioned,Low impact
+RDSH07-OSdisk0,269.57,2048,0.00,268.29,2048,0.00,1.28,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+CQF-PROD-118-osdisk,13.14,128,0.00,11.88,128,0.00,1.26,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqwatcherdev,4.08,0,726.10,2.85,0,495.74,1.23,0,230.36,File_Storage,Usage-based,Low impact
+CQF-PROD-207-osdisk,1.19,128,0.00,0.00,0,0.00,1.19,128,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-205-osdisk,12.65,128,0.00,11.48,128,0.00,1.18,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfmq02-osdisk-20211102-174821,31.31,256,0.00,30.15,256,0.00,1.16,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-126-osdisk,12.95,128,0.00,11.91,128,0.00,1.04,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-122-osdisk,13.70,128,0.00,12.72,128,0.00,0.98,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+ubuntu-docker_OsDisk_1_f4d4d84f9cce4f9cb8f754c92456430a,28.39,256,0.00,27.46,256,0.00,0.93,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-129-osdisk,11.55,128,0.00,10.63,128,0.00,0.92,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_ubuntu-docker_1090716838791922,8.01,32,0.00,7.17,32,0.00,0.84,0,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_msp-cqfluent-blue-02_1090716866063700,2.79,32,0.00,1.95,32,0.00,0.84,0,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-202-osdisk,11.38,128,0.00,10.55,128,0.00,0.83,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-107-osdisk,12.94,128,0.00,12.12,128,0.00,0.82,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_msp-cqfluent-prod-blue-02_1090716992121024,2.71,32,0.00,1.96,32,0.00,0.75,0,0.00,VM_Disk,Provisioned,Low impact
+RDSH08-OSdisk0,271.11,2048,0.00,270.42,2048,0.00,0.69,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+devmidtest-02_OsDisk_1_9b0566eb9c284da0afcdfa0033cca6a2,10.21,64,0.00,9.76,64,0.00,0.45,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfmq03-osdisk-20230723-200132,26.37,256,0.00,25.92,256,0.00,0.44,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-121-osdisk,12.63,128,0.00,12.20,128,0.00,0.43,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+penvm_OsDisk_1_332fbd7c3415405db452847f8f3384ec,0.42,64,0.00,0.00,0,0.00,0.42,64,0.00,VM_Disk,Provisioned,Low impact
+cqfluent,21.72,0,439.43,21.31,0,482.57,0.41,0,-43.13,"File_Storage, Storage",Usage-based,Monitor growth trends
+CQF-PROD-130-osdisk,11.35,128,0.00,10.96,128,0.00,0.40,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQFcorpstorage_OsDisk_1_3510375e86964534b4b410536818f65c,20.84,128,0.00,20.54,128,0.00,0.30,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-132-osdisk,12.23,128,0.00,11.96,128,0.00,0.27,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+logicappsb5e0,1.47,0,410.79,1.20,0,336.93,0.26,0,73.85,File_Storage,Usage-based,Low impact
+AzureBackup_cqconnect-ap-blue-01_1090716422164363,4.07,32,0.00,3.81,32,0.00,0.26,0,0.00,VM_Disk,Provisioned,Low impact
+MSP-BackupVault,199.79,0,2459.68,199.54,0,2518.65,0.25,0,-58.97,Backup,Usage-based,Review retention settings
+memoqtestb3b4,13.45,0,770.79,13.20,0,765.12,0.24,0,5.67,File_Storage,Usage-based,Monitor growth trends
+CQF-PROD-203-osdisk,12.48,128,0.00,12.25,128,0.00,0.24,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+logicapps9033,0.22,0,412.01,0.00,0,3.80,0.22,0,408.21,File_Storage,Usage-based,Low impact
+CQF-PROD-117-osdisk,12.90,128,0.00,12.69,128,0.00,0.22,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+stn6bf3e0b4200a3a740d033,0.89,0,1863.64,0.67,0,1804.55,0.22,0,59.09,File_Storage,Usage-based,Low impact
+plunet-db-logs,137.65,1024,0.00,137.44,1024,0.00,0.21,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_devmidtest-01_1090717310654222,3.49,32,0.00,3.28,32,0.00,0.21,0,0.00,VM_Disk,Provisioned,Low impact
+RDSH14-OSdisk0,263.77,2048,0.00,263.57,2048,0.00,0.21,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+AzureBackup_cqconnect-ap-blue-02_1090716968690415,4.09,32,0.00,3.89,32,0.00,0.20,0,0.00,VM_Disk,Provisioned,Low impact
+logicappsa889,1.56,0,452.62,1.38,0,401.35,0.18,0,51.27,File_Storage,Usage-based,Low impact
+AzureBackup_cqconnect-msp-01_1090717065222906,16.73,32,0.00,16.57,32,0.00,0.16,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cq-memoq-eastus-test_OsDisk_1_40c1dbf9ad854b8a91ef4dce83623c36,13.10,128,0.00,12.94,128,0.00,0.16,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfmq03-datadisk-000-20230723-200132,19.62,256,0.00,19.46,256,0.00,0.16,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfstorage02-datadisk_6,491.75,16384,0.00,491.60,16384,0.00,0.15,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+CQF-PROD-119-osdisk,12.68,128,0.00,12.53,128,0.00,0.15,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+memoq-datadisk03-g,3609.13,32768,0.00,3608.98,32768,0.00,0.15,0,0.00,VM_Disk,Provisioned,HIGH: Review if full capacity needed
+EAD-DC01osDisk,20.58,128,0.00,20.45,128,0.00,0.13,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-127-osdisk,12.36,128,0.00,12.24,128,0.00,0.12,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_devmidtest-02_1090717031250667,3.92,32,0.00,3.81,32,0.00,0.10,0,0.00,VM_Disk,Provisioned,Low impact
+RDSH03-OSdisk0,139.36,1024,0.00,139.26,1024,0.00,0.10,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AVD-PROD1-GOLD-tmp-osdisk,0.10,128,0.00,0.00,0,0.00,0.10,128,0.00,VM_Disk,Provisioned,Low impact
+e2e1_OsDisk_1_2b7027127a5a459c86888b0c80ad8933,3.94,32,0.00,3.86,32,0.00,0.08,0,0.00,VM_Disk,Provisioned,Low impact
+MSP-DB01_OsDisk_1_6c67108d37b64708a3e3401631a1acba,20.52,128,0.00,20.45,128,0.00,0.07,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfcoldarchive,201.29,0,13272.53,201.23,0,13268.40,0.06,0,4.14,File_Storage,Usage-based,Monitor growth trends
+powerautomate-gateway_OsDisk_1_583594b21140490183930c1f195c81cf,0.06,128,0.00,0.00,0,0.00,0.06,128,0.00,VM_Disk,Provisioned,Low impact
+AVD-TECH-GOLD-tmp-osdisk,0.05,128,0.00,0.00,0,0.00,0.05,128,0.00,VM_Disk,Provisioned,Low impact
+PRX01osDisk,7.09,128,0.00,7.05,128,0.00,0.04,0,0.00,VM_Disk,Provisioned,Low impact
+cqscripts,0.22,0,20.25,0.17,0,11.03,0.04,0,9.22,File_Storage,Usage-based,Low impact
+AzureBackup_penvm_87962257379966,0.04,32,0.00,0.00,0,0.00,0.04,32,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_msp-cqfluent-prod-blue-01_1090716036723446,2.74,32,0.00,2.70,32,0.00,0.04,0,0.00,VM_Disk,Provisioned,Low impact
+AVD-SI-GOLD-tmp-osdisk,0.04,128,0.00,0.00,0,0.00,0.04,128,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_cqconnect-prod-02_1090715875568724,4.89,32,0.00,4.85,32,0.00,0.03,0,0.00,VM_Disk,Provisioned,Low impact
+cqfmq02-datadisk-000-20211102-174821,19.39,256,0.00,19.36,256,0.00,0.03,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AVD-PROD2-GOLD-tmp-osdisk,0.03,128,0.00,0.00,0,0.00,0.03,128,0.00,VM_Disk,Provisioned,Low impact
+snapshot-1dd34b87-474e-4f61-8aeb-0bd0188f8f28,0.04,0,0.00,0.01,32,0.00,0.03,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-a04961c6-1036-4f29-b2d3-efef7b6b4960,0.04,0,0.00,0.01,32,0.00,0.03,-32,0.00,VM_Disk,Provisioned,Low impact
+MSP-Plunet01_OsDisk_1_83be6e7942cb455f92778265949adb28,496.51,4096,0.00,496.48,4096,0.00,0.03,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+cqfsftpstorage,0.76,0,27.89,0.74,0,27.03,0.02,0,0.86,File_Storage,Usage-based,Low impact
+AzureBackup_msp-consumer-01-prod_1090716243434784,3.30,32,0.00,3.28,32,0.00,0.02,0,0.00,VM_Disk,Provisioned,Low impact
+cqsupportmonitoring9fca,0.25,0,437.62,0.24,0,417.66,0.02,0,19.95,File_Storage,Usage-based,Low impact
+AVD-PROD1-TEST2-osdisk,9.66,128,0.00,9.64,128,0.00,0.02,0,0.00,VM_Disk,Provisioned,Low impact
+cqfstoragesync,9.99,0,3.00,9.97,0,2.99,0.01,0,0.00,File_Storage,Usage-based,Low impact
+freescout_OsDisk_1_566e1a1e619e4a60b9715d5bbaf2a252,4.60,32,0.00,4.59,32,0.00,0.01,0,0.00,VM_Disk,Provisioned,Low impact
+cqlogicmonitorrgdiag,0.04,0,93.08,0.03,0,90.05,0.01,0,3.03,File_Storage,Usage-based,Low impact
+consolex3xnijfrlnsty,0.04,0,93.36,0.03,0,90.30,0.01,0,3.06,File_Storage,Usage-based,Low impact
+6.0.0,0.01,32,0.00,0.00,0,0.00,0.01,32,0.00,VM_Disk,Provisioned,Low impact
+CQF-TECH-203-osdisk,0.01,128,0.00,0.00,0,0.00,0.01,128,0.00,VM_Disk,Provisioned,Low impact
+logicappstesta247,0.25,0,439.91,0.24,0,425.35,0.01,0,14.57,File_Storage,Usage-based,Low impact
+stsecuredeva080224081467,0.03,0,0.59,0.02,0,0.47,0.01,0,0.12,File_Storage,Usage-based,Low impact
+cqconnectfunctionsprod,0.06,0,5.71,0.06,0,5.50,0.00,0,0.21,File_Storage,Usage-based,Low impact
+unifiedcqmspprod,0.06,0,5.83,0.06,0,5.57,0.00,0,0.26,File_Storage,Usage-based,Low impact
+powerautomate-gateway_OsDisk_1_e265b6285adf48ca94e6f45b7208ad23,0.00,128,0.00,0.00,0,0.00,0.00,128,0.00,VM_Disk,Provisioned,Low impact
+dpsu6dg3ilfdqyua,0.02,0,5.39,0.02,0,5.21,0.00,0,0.18,"File_Storage, Storage",Usage-based,Low impact
+powerautomate-gateway_OsDisk_1_a812ec4db4c64e45af68006d6dce5717,0.00,128,0.00,0.00,0,0.00,0.00,128,0.00,VM_Disk,Provisioned,Low impact
+snapshot-edbf3792-c773-41ba-aa62-9f4603305256,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+cssa7574a924df387db37f93,0.01,0,0.52,0.01,0,0.48,0.00,0,0.04,File_Storage,Usage-based,Low impact
+snapshot-f5e8ecca-ab9c-4ddb-8892-65884faf060d,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+cqconnectnfs,0.00,0,0.03,0.00,0,0.00,0.00,0,0.03,File_Storage,Usage-based,Low impact
+snapshot-e38130b5-d1b7-46d0-894c-643339dc464e,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-8999b209-57c5-49a7-b5f2-ebd36cd8d6a4,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-2651ea57-4e3c-4621-82e4-e234394bc621,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-02d3f221-bf61-43bd-83e2-3cdfb9891165,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-f64df67f-4721-4890-851e-d62e6943da94,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-31195555-04de-40ea-9712-c6ccdf308df1,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-ce8cc7db-075a-4018-bbbd-eb864ef68714,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-4c47cc21-7a71-441e-80dc-93e7beb62d61,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-b2932b11-2448-44db-b2ac-5bc3bcc6948e,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-becd166d-23e9-4869-835e-c1236fa4cfa3,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-80aa6690-b14b-400e-82e5-ea6fafb1e440,0.00,0,0.00,0.00,32,0.00,0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+PERFPROBE01OsDisk,5.89,128,0.00,5.89,128,0.00,0.00,0,0.00,VM_Disk,Provisioned,Low impact
+memoqbackup,0.00,0,0.03,0.00,0,0.02,0.00,0,0.01,File_Storage,Usage-based,Low impact
+cqfluencyrgperfdiag241,0.01,0,0.36,0.01,0,0.36,0.00,0,0.00,File_Storage,Usage-based,Low impact
+cqfcloudynreports,0.00,0,0.04,0.00,0,0.04,0.00,0,0.00,File_Storage,Usage-based,Low impact
+powerautomate-gateway_OsDisk_1_85a85f72491f4028bcd5536e41f30e3f,0.00,128,0.00,0.00,0,0.00,0.00,128,0.00,VM_Disk,Provisioned,Low impact
+powerautomate-gateway_OsDisk_1_2abf57f863b74dedaa25118df57a630b,0.00,128,0.00,0.00,0,0.00,0.00,128,0.00,VM_Disk,Provisioned,Low impact
+storagevjlzwdxetwbfm,0.00,0,0.03,0.00,0,0.02,0.00,0,0.00,File_Storage,Usage-based,Low impact
+siterecovery23,53.23,0,1182.94,53.23,0,1182.94,0.00,0,0.00,File_Storage,Usage-based,Monitor growth trends
+AzureBackup_MSP-DEVOPS-AK8S-EAST_1090715793051712,0.46,32,0.00,0.46,32,0.00,0.00,0,0.00,VM_Disk,Provisioned,Low impact
+e2e1storage,0.00,0,0.09,0.00,0,0.09,0.00,0,0.00,File_Storage,Usage-based,Low impact
+stroagearchivevms,0.22,0,219.34,0.22,0,219.34,0.00,0,0.00,File_Storage,Usage-based,Low impact
+14.0.0,4.32,3,0.00,4.32,3,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+stn6873d0f4700b3033595d8,0.01,0,0.30,0.01,0,0.26,0.00,0,0.04,File_Storage,Usage-based,Low impact
+CQFPROD1GOLDSNAP,3.49,2,0.00,3.49,2,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+stnc6fd57b42c1b4ad22b21c,0.00,0,0.03,0.00,0,0.03,0.00,0,0.00,File_Storage,Usage-based,Low impact
+cs47144852a326bx4996xa90,0.60,0,10.03,0.60,0,10.02,0.00,0,0.01,File_Storage,Usage-based,Low impact
+data3-disk-memoq-snapshot-test,76.13,49,0.00,76.13,51,0.00,0.00,-2,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfstorage02,2096.00,0,10480.00,2096.00,0,10480.00,0.00,0,0.00,File_Storage,Usage-based,HIGH: Consider archive/cool tiers
+bbg66obrzbackupvasrcache,0.00,0,0.04,0.00,0,0.04,0.00,0,0.00,File_Storage,Usage-based,Low impact
+DEVWinJump-server-OS,0.85,1,0.00,0.85,1,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+PlunetCQF-Snap051821,4.55,3,0.00,4.55,3,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+ydfjaubrzbackupvasrcache,0.00,0,0.03,0.00,0,0.02,0.00,0,0.00,File_Storage,Usage-based,Low impact
+onpremisearchives,0.00,0,0.02,0.00,0,0.02,0.00,0,-0.00,File_Storage,Usage-based,Low impact
+cs210032002fd9b6328,0.00,0,0.02,0.00,0,0.02,0.00,0,-0.00,File_Storage,Usage-based,Low impact
+cqfstoragecool,0.00,0,0.05,0.00,0,0.05,0.00,0,-0.00,File_Storage,Usage-based,Low impact
+cqfluencyrgperfdiag253,0.00,0,0.03,0.00,0,0.03,0.00,0,-0.00,File_Storage,Usage-based,Low impact
+unifieddevmidprod,0.00,0,0.02,0.00,0,0.02,0.00,0,-0.00,File_Storage,Usage-based,Low impact
+cs27144852a326bx4996xa90,0.30,0,5.03,0.30,0,5.02,0.00,0,0.00,File_Storage,Usage-based,Low impact
+cqgenai,0.00,0,0.04,0.00,0,0.04,0.00,0,-0.00,File_Storage,Usage-based,Low impact
+CQconnect-image-20230505194646,14.04,9,0.00,14.04,9,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+Pre-Expansion,0.63,0,0.00,0.63,0,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-msp,14.04,9,0.00,14.04,9,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+PlunetCQF-OSDisk-Repaired,4.57,3,0.00,4.57,3,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+data2-disk-memoq-snapshot-test,85.61,55,0.00,85.61,57,0.00,0.00,-2,0.00,VM_Disk,Provisioned,Monitor capacity needs
+18.0.0,3.59,2,0.00,3.59,2,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-memoq-prod-datadisk,6.01,4,0.00,6.01,4,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+RDSH07rdsh07-clone,58.27,38,0.00,58.27,39,0.00,0.00,-1,0.00,VM_Disk,Provisioned,Monitor capacity needs
+memoq-cqf-osdisk-snapshot,5.58,4,0.00,5.58,4,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+AVD-PROD1-GOLD-image,3.60,2,0.00,3.60,2,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+rdsh03snap1,12.64,8,0.00,12.64,8,0.00,0.00,-0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+penvm_snapshot_01,0.00,32,0.00,0.00,0,0.00,0.00,32,0.00,VM_Disk,Provisioned,Low impact
+MSP-STORAGEFS,0.00,0,1.00,0.00,0,1.00,0.00,0,0.00,File_Storage,Usage-based,Low impact
+sftp-preupdates-030422,1.77,1,0.00,1.77,1,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+plunetcqf-os-01-10-25,40.67,26,0.00,40.67,27,0.00,-0.00,-1,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfunctions,0.00,0,0.03,0.00,0,0.03,-0.00,0,0.00,File_Storage,Usage-based,Low impact
+PlunetCQF_SnapShot_43021,4.00,3,0.00,4.00,3,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+26.0.0,3.44,2,0.00,3.44,2,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+PlunetCQF-DB02-snapshot,10.97,7,0.00,10.97,7,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+securedev-4427,0.00,0,0.00,0.00,0,0.00,-0.00,0,-0.00,File_Storage,Usage-based,Low impact
+os-disk-memoq-snapshot-test,100.00,65,0.00,100.00,67,0.00,-0.00,-2,0.00,VM_Disk,Provisioned,Monitor capacity needs
+askpolyfn,0.00,0,0.04,0.00,0,0.04,-0.00,0,-0.00,File_Storage,Usage-based,Low impact
+data1-disk-memoq-snapshot-test,90.29,58,0.00,90.29,60,0.00,-0.00,-2,0.00,VM_Disk,Provisioned,Monitor capacity needs
+rdsh07-clone,58.27,38,0.00,58.27,39,0.00,-0.00,-1,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cssa2929b1a4417bb6aef6ee,0.00,0,0.02,0.00,0,0.02,-0.00,0,-0.00,File_Storage,Usage-based,Low impact
+cqconnect-msp-managed-disk,14.03,9,0.00,14.03,9,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqsupportmonitoring91a8,0.00,0,0.06,0.00,0,0.06,-0.00,0,-0.00,File_Storage,Usage-based,Low impact
+DEVWin10Jump-image-20230506105213,1.52,1,0.00,1.52,1,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+AVD-PROD2-GOLD-image,3.38,2,0.00,3.38,2,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+cqfluencyautoteststrg,0.01,0,0.45,0.01,0,0.46,-0.00,0,-0.00,File_Storage,Usage-based,Low impact
+MSPFW01EAST_OsDisk_1_82d5c638880c49d69fd0263f6ca5fc76,0.60,0,0.00,0.60,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+cqwatcherfunctionapp02,0.00,0,0.24,0.01,0,0.25,-0.00,0,-0.01,File_Storage,Usage-based,Low impact
+cqstaticpages,0.00,0,0.03,0.00,0,0.09,-0.00,0,-0.06,File_Storage,Usage-based,Low impact
+cqcontainerstorage,0.05,0,0.87,0.05,0,0.91,-0.00,0,-0.04,File_Storage,Usage-based,Low impact
+snapshot-158bc82d-6ff5-4c3c-a5ef-05f2d868817b,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+cs410032004db6c2319,0.30,0,5.01,0.30,0,5.06,-0.00,0,-0.05,File_Storage,Usage-based,Low impact
+RDSH18-OSdisk0,20.43,128,0.00,20.43,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+msp-cqfluent-blue-02_OsDisk_1_c81015ec077b485f907ae586b9bd3963,5.28,32,0.00,5.28,32,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+MSPFW01EAST_disk2_1e198e390b4b4e6fb52353fe6e0f0146,5.28,32,0.00,5.28,32,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+msp-consumer-01-prod_OsDisk_1_df57acaf28034c4fa0d4a6649878d97a,5.28,32,0.00,5.28,32,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+devmidtest-01_OsDisk_1_efcb1794366442cdb745fc6dbecb6c29,5.28,32,0.00,5.28,32,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+MSP-DEVOPS-AK8S-EAST_OsDisk_1_cf5bdd6f60c84000ba6fdcd628a5877f,5.28,32,0.00,5.28,32,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+msp-cqfluent-blue-01_OsDisk_1_807741a9aa7944478fdd50a249c535eb,5.28,32,0.00,5.28,32,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+MSP-DevOps-jenkins-aks_OsDisk_1_4584838aa3ef463a8904ba48d7131992,5.28,32,0.00,5.28,32,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+AVD-Prod-Image-osdisk,5.89,128,0.00,5.89,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+AVD-Tech-Image-osdisk,5.89,128,0.00,5.89,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+AVD-Prod2-Image-osdisk,5.89,128,0.00,5.89,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+AVD-SI-Image-osdisk,5.89,128,0.00,5.89,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-d77b851b-5bd8-4a88-bae6-6b4ae04512ec,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-7f3c6bc0-39ec-45c1-8b38-18f783ea9075,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-c30526ba-e278-4c34-95b1-27bd1d22044d,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-3e152a1f-b863-4332-b0ec-de9eb758ccf6,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-2a02367c-c0a0-4497-a264-e83e8c2614aa,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+vm-d1f3c5-osDisk,9.60,128,0.00,9.60,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-c0f94256-dc22-46ba-871f-b47dec7f3a3e,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-9c9b24b7-baf5-44c2-8bba-a7b3b3a54486,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-04a0a1d5-1637-434c-a16f-369c8ed81348,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-3c6a07b4-65f2-45c7-91be-8dfcd587d8ea,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-c6c12a10-347f-492e-b714-f9528c68956d,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-4ae88e1e-8174-43af-8cd1-9886196a473e,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-6802dbf5-0954-47ca-b6f1-4f565d0a01a8,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-3e6d105f-7485-417d-8a60-60ce648766e7,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-652b41e6-14da-4b23-b724-cc377326b245,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-6d99fb0c-414b-4a1a-a15c-dec56751cca8,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-361496b4-cbe2-4e2f-ac81-b640307c03c0,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-737837ef-b7f8-4426-9288-37395e2c854a,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-7ba657b0-a5df-42ef-baca-53363ac180fa,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-a53eccaf-6d61-4542-abd8-b7a6bb8fa9c7,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-4e126df1-d2ae-44c5-af1b-e0be6b2364e2,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-46b98d07-055a-4a9e-a18c-2b1e0d6f5c9a,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-a796bb96-c574-4f68-a31c-723ea9b6dce1,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-fdf3b35b-e0b9-4c06-aa09-b39bd93a6b2f,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-c1b98baa-811f-4862-aa8e-904d446013f0,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-21415c38-c744-4afd-bff6-e5f86b337f49,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-15072f11-a0fc-4521-a0c8-ab760d31ddbf,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-5fcfa77a-160f-4084-b77d-22d46cc78e98,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-7ea67994-ad66-4a8a-b9df-1ad398651412,0.00,0,0.00,0.00,0,0.00,-0.00,-0,0.00,VM_Disk,Provisioned,Low impact
+snapshot-0611d52d-c719-438d-859d-3245dc06ba17,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-bef8392c-5208-4a81-9677-30642ea5146e,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-511a0580-151d-43f4-a204-d803296323d0,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-d906a693-49bd-4160-99b6-1651d72a644f,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-c820254b-833e-49c3-a132-09a47f8f075d,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-6358aa76-a911-4d34-bca2-bb2ac845ee3a,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-e612722d-035d-4e3d-9258-b2f87cc67258,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-e4ed63f2-488f-4dc5-8471-ba97677cd630,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-310c446a-2802-408c-ac2c-0769dbaff202,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-ed0d7e35-540c-41a6-943c-8caf430e96a0,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-72cd0214-35cf-4230-8751-d881d884980e,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-72c66381-8763-435f-8d18-74da31e56fc4,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-a61be8f3-5ddb-4a82-8890-ebe78028692b,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+snapshot-edf863e0-b043-4a85-8d9d-369472fab3c0,0.00,0,0.00,0.00,32,0.00,-0.00,-32,0.00,VM_Disk,Provisioned,Low impact
+CQF-PRODT-101-osdisk,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+msp-storage01-datadisk3,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfluencyrgdisks533,19.71,0,1.00,19.71,0,1.00,-0.00,0,-0.00,File_Storage,Usage-based,HIGH: Consider archive/cool tiers
+FS01osDisk,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+msp-cqfluent-prod-blue-02_disk1_d201eb93c3c040fd9aaed438694d652d,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+WS00-OSdisk0,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+DEVWinJump-server_OsDisk_1_1295941b1f6b45e3ab1813860704183d,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-OP-Gateway_OsDisk_1_dafcf7c5c23844fd8170e4161e222d76,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqconnect-ap-blue-02_OsDisk_1_8b25590114ed48e5884e3632b7032b92,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+msp-storage01-datadisk2,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+DEVWinJump-server-MSP_OsDisk_1_fc4b3f067efc48ab99c00e5078f0e94c,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfluency-lm-win_OsDisk_1_9c0b8a1dd1b54bf2a07a108effe4221f,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH01osDisk,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+msp-cqfluent-prod-blue-01_OsDisk_1_1596bc48aa8945c2b2f4cbdb75ce5ad4,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+MSP-DevOps-jenkins-aks_DataDisk_0,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+MSP-K8S-jump_OsDisk_1_89025370f27e4fbbba724b9a3b8195fa,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+DEVWin10Jump_disk1_589f2ee0c4454c80a0c4c36b8b3e9f21,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+FS01dataDisk,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+Windows10Mgmt_OsDisk_1_20c309024ec24d08911695d700ae6da4,19.71,128,0.00,19.71,128,0.00,-0.00,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH14_dataDisk0,38.01,256,0.00,38.02,256,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqconnect-consumer-01-ap_OsDisk_1_a20f06c20f404e57bf9b2c2e50665a4b,38.01,256,0.00,38.02,256,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+rdsh13_data_01,38.01,256,0.00,38.02,256,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+rdsh13_data_02,38.01,256,0.00,38.02,256,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH14_dataDisk1,38.01,256,0.00,38.02,256,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqconnect-ap-blue-01_OsDisk_1_bd145dea0ffd45488e4293db51f3b07a,38.01,256,0.00,38.02,256,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+STORAGE_OsDisk_1_b517af7d593141acb37c4ac34f5649f6,20.50,128,0.00,20.50,128,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+TRADOSosDisk,6.87,128,0.00,6.88,128,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-prod-02_OsDisk_1_707c7a0e07f049a39a33380eec3c66e2,73.22,512,0.00,73.23,512,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+devmiddlewaremsp-osdisk-20230508-224223,73.22,512,0.00,73.23,512,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQwatcher-Gateway-AD-2_OsDisk_1_9642fc0670ae4877996da6a21125c9e8,73.22,512,0.00,73.23,512,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+DEVMiddleware_OsDisk_1_0e349f2ca286406d86803c90be736fe5,73.22,512,0.00,73.23,512,0.00,-0.01,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH09-OSdisk0,135.16,1024,0.00,135.18,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+memoq-cqf-db-data,135.16,1024,0.00,135.18,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH17-OSdisk0,135.16,1024,0.00,135.18,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH04-OSdisk0,135.16,1024,0.00,135.18,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH12-OSdisk0,135.16,1024,0.00,135.18,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH15-OSdisk0,135.16,1024,0.00,135.18,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-116-osdisk,12.27,128,0.00,12.29,128,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+memoq,135.17,1024,0.00,135.19,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+memoq-db-cqf_disk1_39dcc78d479946659fd7391e41cc25db,135.16,1024,0.00,135.18,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+LMS_OsDisk_1_f9320e7dec954cbb968f4a90f5637629,38.24,256,0.00,38.26,256,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+15.0.0,3.28,2,0.00,3.30,2,0.00,-0.02,-0,0.00,VM_Disk,Provisioned,Low impact
+16.0.0,3.42,2,0.00,3.44,2,0.00,-0.02,-0,0.00,VM_Disk,Provisioned,Low impact
+17.0.0,3.51,2,0.00,3.53,2,0.00,-0.02,-0,0.00,VM_Disk,Provisioned,Low impact
+CQFstorage_OsDisk_1_b6acf1bf9d40428a93d6bf79a0279d86,160.56,1024,0.00,160.58,1024,0.00,-0.02,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfstorageDataDisk,141.07,1024,0.00,141.10,1024,0.00,-0.03,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+11.0.0,3.92,3,0.00,3.95,3,0.00,-0.03,-0,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_cqconnect-prod-01-blue_1090717359718657,1.44,32,0.00,1.46,32,0.00,-0.03,0,0.00,VM_Disk,Provisioned,Low impact
+msp-db01-datadisk1,38.07,256,0.00,38.09,256,0.00,-0.03,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+12.0.0,4.16,3,0.00,4.19,3,0.00,-0.03,-0,0.00,VM_Disk,Provisioned,Low impact
+13.0.0,4.30,3,0.00,4.33,3,0.00,-0.03,-0,0.00,VM_Disk,Provisioned,Low impact
+plunet-db-backups,259.04,2048,0.00,259.07,2048,0.00,-0.03,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+RDS02-OS-Drive,259.03,2048,0.00,259.07,2048,0.00,-0.04,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+cqconnect-msp-01_disk1_a403dec14d394e7ca332d2e7f9f5b8b5,259.03,2048,0.00,259.07,2048,0.00,-0.04,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+RDSH10-OSdisk0,259.03,2048,0.00,259.07,2048,0.00,-0.04,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+RDSH11rdsh11-OSdisk0,259.03,2048,0.00,259.07,2048,0.00,-0.04,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+sftp01_OsDisk_1_198b8c70b36344df9d65589a48d530a6,73.63,512,0.00,73.67,512,0.00,-0.04,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+pvc-bd648493-3133-424b-93a1-713b0b987821,3.60,32,0.00,3.64,512,0.00,-0.04,-480,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-110-osdisk,12.33,128,0.00,12.39,128,0.00,-0.05,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH20-OSdisk0,20.29,128,0.00,20.35,128,0.00,-0.06,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+pvc-2b3313a0-4fed-4d2d-85cd-9bce7ea0094b,3.60,32,0.00,3.66,512,0.00,-0.06,-480,0.00,VM_Disk,Provisioned,Low impact
+msp-storage01-datadisk1,259.07,2048,0.00,259.13,2048,0.00,-0.06,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+MSP-DC01_OsDisk_1_4bfc258a5c18434facf3f7c3f1442c9e,20.46,128,0.00,20.52,128,0.00,-0.06,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+MSP-DB02_OsDisk_1_fde0242fcfa64dbb83082ee4e2696efc,20.43,128,0.00,20.50,128,0.00,-0.06,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+memoqcqf-datadisk02,495.54,4096,0.00,495.61,4096,0.00,-0.07,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+cqfstorage02_OsDisk_1_e86c3ed8eace43cdb4ec2f7bf55fa8e4,520.11,4096,0.00,520.18,4096,0.00,-0.07,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+MSP-STORAGE01_OsDisk_1_4c0ed44e6a0c441ead8c75aac6b29279,20.40,128,0.00,20.47,128,0.00,-0.08,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+1.0.0,12.53,3,0.00,12.62,3,0.00,-0.08,-0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+MSP-MQ01_OsDisk_1_4d00017b03114565a08dba31ed88d673,496.23,4096,0.00,496.33,4096,0.00,-0.10,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+AzureBackup_connect-msp-02-blue_1090717640003261,14.13,32,0.00,14.23,32,0.00,-0.11,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqbiteam,0.27,0,11.17,0.38,0,39.17,-0.11,0,-27.99,File_Storage,Usage-based,Low impact
+CQF-PRODT-104-osdisk,19.58,128,0.00,19.71,128,0.00,-0.14,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PRODT-103-osdisk,19.58,128,0.00,19.71,128,0.00,-0.14,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PRODT-102-osdisk,19.58,128,0.00,19.71,128,0.00,-0.14,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDGW01osDisk,20.71,128,0.00,20.85,128,0.00,-0.14,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+2.0.0,26.78,3,0.00,26.94,3,0.00,-0.16,-0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-105-osdisk,10.42,128,0.00,10.59,128,0.00,-0.16,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqconnect-prod-01_disk1_2b7aeb5765ef4fc3ba6f5278fbd6d47f,260.24,2048,0.00,260.41,2048,0.00,-0.17,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+PlunetCQF-Test_OsDisk_1_13d5d184999c4427a290ecc8b08c6a06,74.13,512,0.00,74.31,512,0.00,-0.18,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+LMS-DB_OsDisk_1_79d2bbb2588d4a9887547f67cfd1d6df,20.35,128,0.00,20.53,128,0.00,-0.19,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_DEVMiddleware-MSP_1090716804981068,5.06,32,0.00,5.25,32,0.00,-0.19,0,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_cq-memoq-eastus-prod_87961001902744,1.02,1,0.00,1.22,32,0.00,-0.20,-31,0.00,VM_Disk,Provisioned,Low impact
+gateway02-osdisk-20200413-140320,135.90,1024,0.00,136.10,1024,0.00,-0.20,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+MSP-RDS01_OsDisk_1_f952e100e027492fa7b3521ed068eefc,20.62,128,0.00,20.83,128,0.00,-0.21,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+DC01osDisk,20.70,128,0.00,20.92,128,0.00,-0.22,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-114-osdisk,12.04,128,0.00,12.30,128,0.00,-0.26,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-204-osdisk,13.23,128,0.00,13.50,128,0.00,-0.27,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqscribedev,0.88,0,14.75,1.16,0,17.68,-0.29,0,-2.93,"File_Storage, Storage",Usage-based,Low impact
+cqfluentstrguat,19.07,0,99.60,19.39,0,231.65,-0.32,0,-132.05,"File_Storage, Storage",Usage-based,HIGH: Consider archive/cool tiers
+CQF-PROD-128-osdisk,11.84,128,0.00,12.19,128,0.00,-0.35,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-108-osdisk,12.30,128,0.00,12.66,128,0.00,-0.36,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_msp-devmiddleware-eastus-staging_1090717455375456,3.64,32,0.00,4.03,32,0.00,-0.39,0,0.00,VM_Disk,Provisioned,Low impact
+cqfluentstrgprod,18.52,0,98.56,18.92,0,246.39,-0.40,0,-147.83,"File_Storage, Storage",Usage-based,HIGH: Consider archive/cool tiers
+AzureBackup_cq-memoq-eastus-test_87961900859756,6.25,32,0.00,6.66,32,0.00,-0.41,0,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_cqconnect-consumer-01-devmid_87961225125765,0.96,32,0.00,1.43,32,0.00,-0.47,0,0.00,VM_Disk,Provisioned,Low impact
+plunetMSDDB,38.80,256,0.00,39.32,256,0.00,-0.52,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-111-osdisk,12.74,128,0.00,13.29,128,0.00,-0.56,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH19-OSdisk0,139.82,1024,0.00,140.43,1024,0.00,-0.61,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+aksbackupstrguat,0.01,0,0.10,0.63,0,6.63,-0.62,0,-6.53,"File_Storage, Storage",Usage-based,Low impact
+aksbackupstrgprod,0.01,0,0.10,0.73,0,6.58,-0.73,0,-6.49,"File_Storage, Storage",Usage-based,Low impact
+RDSH06-OSdisk0,139.26,1024,0.00,140.03,1024,0.00,-0.76,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+RDSH16-OSdisk0,264.84,2048,0.00,265.63,2048,0.00,-0.78,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+CQF-PROD-201-osdisk,11.44,128,0.00,12.30,128,0.00,-0.86,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_cqconnect-consumer-01-ap_87962483113484,2.11,32,0.00,3.02,32,0.00,-0.91,0,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-115-osdisk,12.09,128,0.00,13.01,128,0.00,-0.92,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfluentfunctionsprod,4.02,0,732.61,4.94,0,884.78,-0.93,0,-152.17,File_Storage,Usage-based,Low impact
+CQF-TECH-101-osdisk,10.89,128,0.00,11.85,128,0.00,-0.96,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+unifiedcqdevmidstg,0.98,0,45.14,1.95,0,231.52,-0.97,0,-186.38,File_Storage,Usage-based,Low impact
+cqwatcherb860,12.87,0,2409.55,13.84,0,2562.15,-0.97,0,-152.60,File_Storage,Usage-based,Monitor growth trends
+CQF-PROD-103-osdisk,11.63,128,0.00,12.87,128,0.00,-1.24,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_cqconnect-consumer-01-prod_87961385247096,3.03,32,0.00,4.28,32,0.00,-1.25,0,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_msp-cqfluent-prod-green-02_1090716639443709,1.05,32,0.00,2.35,32,0.00,-1.29,0,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_cqconnect-consumer-02-prod_87962363702124,2.24,32,0.00,3.53,32,0.00,-1.30,0,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-113-osdisk,12.46,128,0.00,13.86,128,0.00,-1.40,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_msp-cqfluent-prod-green-01_1090716531533345,1.53,32,0.00,3.00,32,0.00,-1.47,0,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-101-osdisk,10.10,128,0.00,11.58,128,0.00,-1.48,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+unifiedcqconnectprod,1.06,0,48.01,2.65,0,356.41,-1.58,0,-308.40,File_Storage,Usage-based,Low impact
+CQF-TECH-202-osdisk,18.04,128,0.00,19.71,128,0.00,-1.67,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqfluentfunctionsstg,5.94,0,1118.92,7.63,0,1390.58,-1.69,0,-271.66,File_Storage,Usage-based,Low impact
+memoqcqf-osdisk-20241027-131909,497.82,4096,0.00,499.59,4096,0.00,-1.76,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+AzureBackup_memoq-db-cqf_87962895478164,59.63,39,0.00,61.45,42,0.00,-1.81,-2,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqwatcherfunctionapp,33.65,0,4996.56,35.50,0,5322.66,-1.85,0,-326.09,File_Storage,Usage-based,Monitor growth trends
+AzureBackup_cqconnect-prod-02-blue_1090716270367917,3.06,32,0.00,4.99,32,0.00,-1.92,0,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_unified-cqconnect-jenkins-eastus-staging_1090715774301612,2.20,32,0.00,4.16,32,0.00,-1.96,0,0.00,VM_Disk,Provisioned,Low impact
+RDSH03BeforeQBUpdate,0.00,0,0.00,1.96,32,0.00,-1.96,-32,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_cqconnect-ap-green-02_1090716607465906,0.91,32,0.00,3.00,32,0.00,-2.08,0,0.00,VM_Disk,Provisioned,Low impact
+CQF-PROD-102-osdisk,11.73,128,0.00,13.85,128,0.00,-2.12,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-124-osdisk,13.23,128,0.00,15.36,128,0.00,-2.13,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_cqconnect-ap-green-01b_1090716375778282,0.78,32,0.00,2.99,32,0.00,-2.21,0,0.00,VM_Disk,Provisioned,Low impact
+msp-devmiddleware-eastus-staging_OsDisk_1_7ff33139a8df4d4a927440660f29ae7b,9.70,64,0.00,11.92,64,0.00,-2.21,0,0.00,VM_Disk,Provisioned,Low impact
+PLUNETPRD-DB_OsDisk_1_e46dab24931645cda59904ab66eb606c,261.64,2048,0.00,263.88,2048,0.00,-2.24,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+CQF-PROD-104-osdisk,11.42,128,0.00,13.66,128,0.00,-2.24,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AzureBackup_cqconnect-msp-02_1090716558843293,35.63,32,0.00,37.89,32,0.00,-2.26,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-106-osdisk,10.57,128,0.00,13.05,128,0.00,-2.48,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+PLUNETMSDDB-02osDisk,22.32,128,0.00,24.86,128,0.00,-2.54,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-PROD-131-osdisk,9.83,128,0.00,12.43,128,0.00,-2.60,0,0.00,VM_Disk,Provisioned,Low impact
+AzureBackup_MSP-DevOps-jenkins-aks_1090715689717418,1.79,32,0.00,4.56,32,0.00,-2.76,0,0.00,VM_Disk,Provisioned,Low impact
+unifiedcqmsp,17.62,0,2392.00,20.79,0,2854.30,-3.18,0,-462.30,File_Storage,Usage-based,Monitor growth trends
+cqfschedfuncstrgprod,0.01,0,0.26,3.31,0,551.62,-3.30,0,-551.36,File_Storage,Usage-based,Low impact
+cqfschedfuncstrguat,0.00,0,0.11,3.33,0,554.86,-3.32,0,-554.75,File_Storage,Usage-based,Low impact
+pvc-7cfb0988-ad3b-4c03-b620-1b90cf88769a,0.00,0,0.00,3.40,512,0.00,-3.40,-512,0.00,VM_Disk,Provisioned,Low impact
+f8a622ed1344e43338bf68f,0.00,0,0.00,3.47,0,430.91,-3.47,0,-430.91,File_Storage,Usage-based,Low impact
+CQF-TECH-102-osdisk,11.03,128,0.00,15.28,128,0.00,-4.25,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+CQF-TECH-103-osdisk,11.82,128,0.00,16.39,128,0.00,-4.57,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+cqconnectnfs41,11.12,0,69.49,16.00,0,100.00,-4.88,0,-30.51,File_Storage,Usage-based,HIGH: Consider archive/cool tiers
+plunetMSDWeb,136.25,1024,0.00,141.54,1024,0.00,-5.29,0,0.00,VM_Disk,Provisioned,Monitor capacity needs
+AVD-HOST-1-osdisk,0.00,0,0.00,5.40,128,0.00,-5.40,-128,0.00,VM_Disk,Provisioned,Low impact
+cqdockervolumes,13.79,0,68.95,20.00,0,100.00,-6.21,0,-31.05,File_Storage,Usage-based,HIGH: Consider archive/cool tiers
+cqconnect,573.96,0,7097.36,580.40,0,8012.82,-6.44,0,-915.46,"File_Storage, Storage",Usage-based,MEDIUM: Review lifecycle policies
+cqfstorage02-datadisk_4,2461.89,32768,0.00,2468.46,32768,0.00,-6.57,0,0.00,VM_Disk,Provisioned,HIGH: Review if full capacity needed
+pvc-06f7891b-0b66-4f8c-925f-456e21c5e39f,0.00,0,0.00,6.72,512,0.00,-6.72,-512,0.00,VM_Disk,Provisioned,Low impact
+unifiedcqaskpolyprod,2.70,0,365.49,10.27,0,1722.27,-7.57,0,-1356.78,File_Storage,Usage-based,Low impact
+PlunetCQF-OSDisk,268.08,2048,0.00,275.85,2048,0.00,-7.76,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+f48fec17afb474218bf0752,0.32,0,5.37,8.54,0,1199.92,-8.22,0,-1194.54,File_Storage,Usage-based,Low impact
+memoq-test_OsDisk_1_50afe58ea63d48c1af0e7d01cfe23e8a,0.00,0,0.00,9.25,128,0.00,-9.25,-128,0.00,VM_Disk,Provisioned,Low impact
+unified-cqconnect-jenkins-eastus-staging_OS__1_1949c7d7a13a4fd1955f290195c45a0d,0.00,0,0.00,10.68,64,0.00,-10.68,-64,0.00,VM_Disk,Provisioned,Low impact
+CQwatcher-Gateway_OsDisk_1_361ecb395c654462b90c654443b24105,0.00,0,0.00,11.06,128,0.00,-11.06,-128,0.00,VM_Disk,Provisioned,Low impact
+nfs5467c215430146069d67,8.55,0,63.76,19.61,0,1345.63,-11.07,0,-1281.87,"File_Storage, Storage",Usage-based,Low impact
+mspk8sjump-osdisk-20230720-131339,0.00,0,0.00,11.09,128,0.00,-11.09,-128,0.00,VM_Disk,Provisioned,Low impact
+plunetreadrecovery-osdisk-20241002-083018,0.00,0,0.00,11.09,128,0.00,-11.09,-128,0.00,VM_Disk,Provisioned,Low impact
+readreplicarecovery-osdisk-20241001-152900,0.00,0,0.00,11.09,128,0.00,-11.09,-128,0.00,VM_Disk,Provisioned,Low impact
+plunetrecovery-osdisk-20241004-085826,0.00,0,0.00,11.09,128,0.00,-11.09,-128,0.00,VM_Disk,Provisioned,Low impact
+CQFStorage_DataDisk_2,964.68,8192,0.00,977.73,8192,0.00,-13.05,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+cq-memoq-eastus-prod_OsDisk_1_c0ddd37eab04401bac7c1e7b5642635f,0.00,0,0.00,17.85,256,0.00,-17.85,-256,0.00,VM_Disk,Provisioned,Low impact
+cqfluent-dev-02_OsDisk_1_7fe0e71bfd834d1fa308ccc5f950e8cc,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-consumer-01-devmid_OsDisk_1_b906b567abd745ff932a211b3b2d9007,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+cqfluent-jump-win-prod_OsDisk_1_05d0bf1043bb4052bb96821237add79c,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+cqfluency-cqf-jump-server_OsDisk_1_c5d5672b82454396b8dc927a5333148a,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+msp-cqfluent-prod-green-02_OsDisk_1_2c721d3cc42345eea612525fd48013da,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+cqfluency-selfhosted-agent-eastus-prod_OsDisk_1_b3570a34ccf94bf2a29b1557bbc1f8e2,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+cqfluency-selfhosted-agent-eastus-uat_OsDisk_1_06dc2368a3874efcb21631220d4dda7f,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+cqfluent-jump-linux-prod_OsDisk_1_e3c407eb62c4487ca1990df1c75cb104,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+cqfluent-dev-01_OsDisk_1_29fd7b48b86348c5a336153f1d8502c6,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+msp-cqfluent-prod-green-01_OsDisk_1_6888b685fb474e5db7eb6dc83fd69471,0.00,0,0.00,18.26,128,0.00,-18.26,-128,0.00,VM_Disk,Provisioned,Low impact
+nfse1f2219865c841bc8b26,0.00,0,0.00,18.42,0,1330.21,-18.42,0,-1330.21,"File_Storage, Storage",Usage-based,Low impact
+plunetcqfdb02SnapshotDisk,0.00,0,0.00,21.70,256,0.00,-21.70,-256,0.00,VM_Disk,Provisioned,Low impact
+cqdomainstor,70.06,0,437.90,96.00,0,600.00,-25.94,0,-162.10,File_Storage,Usage-based,HIGH: Consider archive/cool tiers
+CQFstorage_DataDisk_0,3712.12,32768,0.00,3741.09,32768,0.00,-28.97,0,0.00,VM_Disk,Provisioned,HIGH: Review if full capacity needed
+cqconnect-ap-green-02_OsDisk_1_5d0e687657794227a40008cc902d7352,0.00,0,0.00,35.22,256,0.00,-35.22,-256,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-consumer-01-prod_OsDisk_1_02dc96c3f7744886861b2c58c5d671cc,0.00,0,0.00,35.22,256,0.00,-35.22,-256,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-consumer-02-prod_OsDisk_1_79f6f386ce7f419bab822a4a845cafbd,0.00,0,0.00,35.22,256,0.00,-35.22,-256,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-ap-green-01b_OsDisk_1_8cfb2552abfd4074bb6e6327a956fb0a,0.00,0,0.00,35.22,256,0.00,-35.22,-256,0.00,VM_Disk,Provisioned,Low impact
+CQFstorage_DataDisk_1,227.09,2048,0.00,263.07,2048,0.00,-35.98,0,0.00,VM_Disk,Provisioned,MEDIUM: Check actual disk utilization
+drmemoqdbtest-osdisk-20250530-213502,0.00,0,0.00,63.46,1024,0.00,-63.46,-1024,0.00,VM_Disk,Provisioned,Low impact
+drmemoqdbtest-datadisk-000-20250530-213502,0.00,0,0.00,63.46,1024,0.00,-63.46,-1024,0.00,VM_Disk,Provisioned,Low impact
+drmemoqdbtest-datadisk-000-20250530-145318,0.00,0,0.00,76.04,1024,0.00,-76.04,-1024,0.00,VM_Disk,Provisioned,Low impact
+drmemoqdbcqf-datadisk-000-20250530-190121,0.00,0,0.00,76.04,1024,0.00,-76.04,-1024,0.00,VM_Disk,Provisioned,Low impact
+drmemoqdbtest-osdisk-20250530-152616,0.00,0,0.00,76.04,1024,0.00,-76.04,-1024,0.00,VM_Disk,Provisioned,Low impact
+drmemoqdbcqf-osdisk-20250530-190121,0.00,0,0.00,76.04,1024,0.00,-76.04,-1024,0.00,VM_Disk,Provisioned,Low impact
+drmemoqdbtest-datadisk-000-20250530-152616,0.00,0,0.00,76.04,1024,0.00,-76.04,-1024,0.00,VM_Disk,Provisioned,Low impact
+RDSH05-OSdisk0,0.00,0,0.00,76.04,1024,0.00,-76.04,-1024,0.00,VM_Disk,Provisioned,Low impact
+drmemoqdbtest-osdisk-20250530-145318,0.00,0,0.00,76.04,1024,0.00,-76.04,-1024,0.00,VM_Disk,Provisioned,Low impact
+plunetcqfdb02-osdisk-20250113-174336,78.53,512,0.00,208.59,4096,0.00,-130.06,-3584,0.00,VM_Disk,Provisioned,Monitor capacity needs
+memoq-cqf_OsDisk_1_4e607a435f424597a53e5937a8b8491a,0.00,0,0.00,159.55,2048,0.00,-159.55,-2048,0.00,VM_Disk,Provisioned,Low impact
+memoq-cqf-datadisk,0.00,0,0.00,159.55,2048,0.00,-159.55,-2048,0.00,VM_Disk,Provisioned,Low impact
+drmemoqwebtest-datadisk-001-20250530-144936,0.00,0,0.00,232.66,4096,0.00,-232.66,-4096,0.00,VM_Disk,Provisioned,Low impact
+drmemoqwebtest-datadisk-000-20250530-144936,0.00,0,0.00,232.66,4096,0.00,-232.66,-4096,0.00,VM_Disk,Provisioned,Low impact
+drmemoqwebtest-osdisk-20250530-144936,0.00,0,0.00,232.66,4096,0.00,-232.66,-4096,0.00,VM_Disk,Provisioned,Low impact
+connect-msp-02-blue,0.00,0,0.00,240.00,2048,0.00,-240.00,-2048,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-msp-02_disk1_928f11db7a73434c9dab015ca72a5eb8,0.00,0,0.00,240.36,2048,0.00,-240.36,-2048,0.00,VM_Disk,Provisioned,Low impact
+plunetreadrestore3-osdisk-20250113-124052,0.00,0,0.00,278.78,4096,0.00,-278.78,-4096,0.00,VM_Disk,Provisioned,Low impact
+plunetcqfdb02-osdisk-20250114-112530,0.00,0,0.00,278.78,4096,0.00,-278.78,-4096,0.00,VM_Disk,Provisioned,Low impact
+plunetreadrestore3-osdisk-20250109-174121,0.00,0,0.00,278.78,4096,0.00,-278.78,-4096,0.00,VM_Disk,Provisioned,Low impact
+PlunetCQF-DB02_OsDisk_1_1bdfa7b65c1d4ca2b5603d9c0a762b70,0.00,0,0.00,278.78,4096,0.00,-278.78,-4096,0.00,VM_Disk,Provisioned,Low impact
+plunetcqfdb02restored01-osdisk-20250113-150950,0.00,0,0.00,278.78,4096,0.00,-278.78,-4096,0.00,VM_Disk,Provisioned,Low impact
+plunetreadrestore2-osdisk-20250109-161327,0.00,0,0.00,278.78,4096,0.00,-278.78,-4096,0.00,VM_Disk,Provisioned,Low impact
+plunetreadrecovery05-osdisk-20250110-035617,0.00,0,0.00,278.78,4096,0.00,-278.78,-4096,0.00,VM_Disk,Provisioned,Low impact
+cq-memoq-eastus-prod_DataDisk_0,0.00,0,0.00,444.17,8192,0.00,-444.17,-8192,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-prod-02-blue_OsDisk_1_c2c9cfaaf1204e98b440ef667596af23,0.00,0,0.00,459.12,4096,0.00,-459.12,-4096,0.00,VM_Disk,Provisioned,Low impact
+cqconnect-prod-01-blue_OsDisk_1_4feaa7be39404288bb70531285bac7af,0.00,0,0.00,459.81,4096,0.00,-459.81,-4096,0.00,VM_Disk,Provisioned,Low impact
+drmemoqwebtest-datadisk-002-20250530-144936,0.00,0,0.00,1692.06,32768,0.00,-1692.06,-32768,0.00,VM_Disk,Provisioned,Low impact

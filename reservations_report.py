@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
+"""
+Azure Reservations Analysis Report with Estimated Savings
+Shows approximate savings when PAYG pricing isn't available
+"""
 
 import json
 import sys
 import re
-from datetime import datetime
+import argparse
+from datetime import datetime, date
 from collections import defaultdict
+
+# -------------------- IO & DATE HELPERS -------------------- #
 
 def load_usage_data(file_path):
     """Load and parse the Azure usage JSON file."""
@@ -16,6 +23,66 @@ def load_usage_data(file_path):
         print(f"Error loading file {file_path}: {e}")
         sys.exit(1)
 
+def parse_iso_date(s):
+    """Parse a date/datetime string in common Azure usage payloads to a date()."""
+    if not s:
+        return None
+    # Try strict date first (YYYY-MM-DD)
+    try:
+        return datetime.strptime(s[:10], "%Y-%m-%d").date()
+    except Exception:
+        pass
+    # Try common ISO datetime variants
+    try:
+        return datetime.fromisoformat(s.replace("Z", "+00:00")).date()
+    except Exception:
+        return None
+
+def extract_record_date(props):
+    """
+    Extract the most appropriate record date from usage record properties.
+    Preference order based on common UsageDetails payloads:
+    1) 'date' -> single day usage/cost posting
+    2) 'usageStart' -> start of usage interval
+    3) 'servicePeriodStartDate' -> sometimes present for purchases
+    Fallback: 'usageEnd' or 'servicePeriodEndDate'
+    """
+    for key in ("date", "usageStart", "servicePeriodStartDate"):
+        d = parse_iso_date(props.get(key))
+        if d:
+            return d
+    for key in ("usageEnd", "servicePeriodEndDate"):
+        d = parse_iso_date(props.get(key))
+        if d:
+            return d
+    return None
+
+def filter_usage_by_date(usage_data, from_date, to_date):
+    """
+    Filter records to [from_date, to_date] inclusive.
+    If no filters are provided, returns the original list.
+    Records with no resolvable date are excluded when a filter is applied.
+    """
+    if not from_date and not to_date:
+        return usage_data, 0
+    
+    filtered = []
+    skipped = 0
+    for rec in usage_data:
+        props = rec.get('properties', {})
+        rd = extract_record_date(props)
+        if rd is None:
+            skipped += 1
+            continue
+        if from_date and rd < from_date:
+            continue
+        if to_date and rd > to_date:
+            continue
+        filtered.append(rec)
+    return filtered, skipped
+
+# -------------------- RESERVATION-LEVEL ANALYSIS -------------------- #
+
 def extract_reservation_id(instance_name):
     """Extract reservation ID from instance name."""
     match = re.search(r'reservationOrders/([^/]+)', instance_name)
@@ -26,348 +93,490 @@ def extract_vm_size(product_name):
     match = re.search(r'Standard_[A-Za-z0-9_]+', product_name)
     return match.group(0) if match else 'Unknown'
 
-def get_vm_actual_sizes(vm_instance_name, usage_data):
-    """Get the actual VM sizes used by a specific VM instance."""
-    sizes = set()
-    for record in usage_data:
-        props = record.get('properties', {})
-        if props.get('instanceName') == vm_instance_name:
-            additional_info = props.get('additionalInfo', '')
-            if additional_info:
-                try:
-                    info_data = json.loads(additional_info)
-                    service_type = info_data.get('ServiceType')
-                    if service_type and service_type.startswith('Standard_'):
-                        sizes.add(service_type)
-                except:
-                    pass
-    return sorted(list(sizes))
-
-def analyze_reservations(usage_data):
-    """Analyze all reservations and their usage."""
-    
-    # Find all reservation records
-    reservation_records = {}
-    consumption_records = defaultdict(list)
-    vm_records = defaultdict(list)
-    
+def analyze_reservations_fixed(usage_data):
+    """Analyze reservations using consumption records as the source of truth."""
+    # Find reservation purchase records visible in this data period
+    visible_reservations = {}
     for record in usage_data:
         props = record.get('properties', {})
         instance_name = props.get('instanceName', '')
-        
-        if 'reservationOrders' in instance_name:
+        if 'reservationOrders' in instance_name and props.get('chargeType') == 'Purchase':
             reservation_id = extract_reservation_id(instance_name)
-            if reservation_id and props.get('chargeType') == 'Purchase':
-                reservation_records[reservation_id] = record
-        
-        # Look for consumption records (VM and Database)
+            if reservation_id:
+                visible_reservations[reservation_id] = record
+    
+    # Find ALL reservation consumption records (including purchases outside this period)
+    all_consumption = defaultdict(list)
+    all_reservations_seen = set()
+    
+    for record in usage_data:
+        props = record.get('properties', {})
         additional_info = props.get('additionalInfo', '')
         if additional_info:
             try:
                 info_data = json.loads(additional_info)
                 if 'ReservationOrderId' in info_data:
                     res_id = info_data['ReservationOrderId']
-                    # For VMs, look for ConsumedQuantity
-                    if 'ConsumedQuantity' in info_data:
-                        consumption_records[res_id].append(info_data)
-                    # For Databases, ReservationOrderId presence indicates usage
-                    elif 'ReservationId' in info_data:
-                        consumption_records[res_id].append({
-                            'service_type': 'Database',
-                            'reservation_id': info_data['ReservationId'],
-                            'consumed': True
-                        })
-            except:
+                    all_reservations_seen.add(res_id)
+                    consumption_data = {
+                        'instance_name': props.get('instanceName', ''),
+                        'cost': props.get('costInBillingCurrency', 0),
+                        'consumed_quantity': info_data.get('ConsumedQuantity', props.get('quantity', 0)),
+                        'service_type': info_data.get('ServiceType', ''),
+                        'reservation_id': info_data.get('ReservationId', ''),
+                        'meter_category': props.get('meterCategory', ''),
+                        'charge_type': props.get('chargeType', ''),
+                        'meter_subcategory': props.get('meterSubCategory', ''),
+                        'consumed_service': props.get('consumedService', ''),
+                        'meter_region': props.get('meterRegion', ''),
+                        'effective_price': props.get('effectivePrice', 0),
+                        'payg_price': props.get('payGPrice', 0)
+                    }
+                    all_consumption[res_id].append(consumption_data)
+            except Exception:
                 pass
-        
-        # Collect VM records for matching
-        if 'reservationOrders' not in instance_name and props.get('meterCategory') == 'Virtual Machines':
-            vm_records[instance_name].append(record)
     
-    return reservation_records, consumption_records, vm_records
+    return visible_reservations, all_consumption, all_reservations_seen
 
-def find_beneficiary_resources(reservation_product, reservation_region, vm_records, usage_data):
-    """Find resources (VMs or databases) that benefit from a specific reservation."""
-    vm_size = extract_vm_size(reservation_product)
-    beneficiaries = []
-    
-    # Handle VM reservations
-    if "Virtual Machines" in reservation_product or "VM Instance" in reservation_product:
-        # First, find direct consumption records for this reservation
-        reservation_id = None
-        for record in usage_data:
-            props = record.get('properties', {})
-            instance_name = props.get('instanceName', '')
-            if 'reservationOrders' in instance_name and props.get('chargeType') == 'Purchase':
-                if props.get('product') == reservation_product and props.get('meterRegion') == reservation_region:
-                    reservation_id = extract_reservation_id(instance_name)
-                    break
-        
-        if reservation_id:
-            # Find all resources consuming this specific reservation
-            consuming_resources = {}
-            for record in usage_data:
-                props = record.get('properties', {})
-                additional_info = props.get('additionalInfo', '')
-                if additional_info:
-                    try:
-                        info_data = json.loads(additional_info)
-                        if info_data.get('ReservationOrderId') == reservation_id:
-                            instance_name = props.get('instanceName', '')
-                            if 'reservationOrders' not in instance_name:
-                                cost = props.get('costInBillingCurrency', 0)
-                                actual_service_type = info_data.get('ServiceType', 'Unknown')
-                                
-                                if instance_name not in consuming_resources:
-                                    consuming_resources[instance_name] = {
-                                        'cost': 0,
-                                        'service_types': set(),
-                                        'reservation_size': vm_size
-                                    }
-                                
-                                consuming_resources[instance_name]['cost'] += cost
-                                consuming_resources[instance_name]['service_types'].add(actual_service_type)
-                    except:
-                        pass
-            
-            # Convert to beneficiaries list
-            for resource_name, data in consuming_resources.items():
-                service_types = sorted(list(data['service_types']))
-                beneficiaries.append({
-                    'resource_name': resource_name,
-                    'cost': data['cost'],
-                    'resource_type': 'VM',
-                    'service_types': service_types,
-                    'reservation_size': data['reservation_size']
-                })
-    
-    # Handle Database reservations (PostgreSQL, SQL, etc.)
-    elif "Database" in reservation_product or "PostgreSQL" in reservation_product:
-        # Look for database resources that match the reservation
-        for record in usage_data:
-            props = record.get('properties', {})
-            instance_name = props.get('instanceName', '')
-            
-            # Skip reservation billing records
-            if 'reservationOrders' in instance_name:
-                continue
-                
-            # Look for database resources
-            consumed_service = props.get('consumedService', '')
-            meter_region = props.get('meterRegion', '')
-            meter_subcategory = props.get('meterSubCategory', '')
-            
-            if (consumed_service == 'Microsoft.DBforPostgreSQL' and 
-                meter_region == reservation_region and
-                'General Purpose Dadsv5 Series Compute' in meter_subcategory):
-                
-                cost = props.get('costInBillingCurrency', 0)
-                effective_price = props.get('effectivePrice', 0)
-                payg_price = props.get('payGPrice', 0)
-                
-                # Check if reservation discount is applied
-                is_discounted = effective_price < payg_price if payg_price > 0 else False
-                
-                beneficiaries.append({
-                    'resource_name': instance_name,
-                    'cost': cost,
-                    'resource_type': 'PostgreSQL Database',
-                    'effective_price': effective_price,
-                    'payg_price': payg_price,
-                    'is_discounted': is_discounted
-                })
-    
-    # Aggregate costs by resource
-    resource_costs = defaultdict(lambda: {'cost': 0, 'details': {}})
-    for b in beneficiaries:
-        resource_name = b['resource_name']
-        resource_costs[resource_name]['cost'] += b['cost']
-        
-        # Store relevant details
-        if b['resource_type'] == 'VM':
-            resource_costs[resource_name]['details'] = {
-                'service_types': b['service_types'],
-                'reservation_size': b['reservation_size']
-            }
-        elif 'is_discounted' in b:
-            resource_costs[resource_name]['details'] = {
-                'effective_price': b['effective_price'],
-                'payg_price': b['payg_price'],
-                'is_discounted': b['is_discounted']
-            }
-    
-    return [(resource, data['cost'], data['details']) for resource, data in resource_costs.items()]
+def get_vm_core_count(service_type):
+    """Extract core count from service type (e.g., D8as_v5 -> 8)."""
+    if not service_type or service_type == 'Unknown':
+        return 0
+    match = re.search(r'D(\d+)[a-z]*_v\d+', service_type)
+    if match:
+        return int(match.group(1))
+    return 0
 
-def generate_report(usage_file):
-    """Generate the complete reservations report."""
-    
-    print("Azure Reservations Analysis Report")
-    print("=" * 50)
-    print(f"Generated: {datetime.now()}")
-    print(f"Source: {usage_file}")
-    print()
-    
-    usage_data = load_usage_data(usage_file)
-    reservation_records, consumption_records, vm_records = analyze_reservations(usage_data)
-    
-    total_cost = 0
-    used_count = 0
-    unused_count = 0
-    used_cost = 0
-    unused_cost = 0
-    
-    # Track potential optimization opportunities
-    vm_size_groups = defaultdict(list)
-    
-    # Analyze each reservation
-    for reservation_id, record in reservation_records.items():
-        props = record.get('properties', {})
-        
+def analyze_reservation_utilization(reservation_id, consumption_records, visible_reservations):
+    """Analyze utilization for a specific reservation."""
+    reservation_info = visible_reservations.get(reservation_id)
+    if reservation_info:
+        props = reservation_info.get('properties', {})
         cost = props.get('costInBillingCurrency', 0)
         product = props.get('product', 'Unknown')
         region = props.get('meterRegion', 'Unknown')
         subcategory = props.get('meterSubCategory', 'Unknown')
         start_date = props.get('servicePeriodStartDate', 'Unknown')
         end_date = props.get('servicePeriodEndDate', 'Unknown')
+        reserved_size = extract_vm_size(product)
+        reserved_cores = get_vm_core_count(reserved_size)
+    else:
+        # Infer details from consumption records
+        cost = "Unknown (purchased outside data period)"
+        product = "Unknown"
+        region = "Unknown"
+        subcategory = "Unknown"
+        start_date = "Unknown"
+        end_date = "Unknown"
+        reserved_size = "Unknown"
+        reserved_cores = 0
+        
+        service_types = {rec['service_type'] for rec in consumption_records if rec['service_type']}
+        if service_types:
+            max_cores = 0
+            for stype in service_types:
+                cores = get_vm_core_count(stype)
+                if cores > max_cores:
+                    max_cores = cores
+                    reserved_size = stype
+                    reserved_cores = cores
+    
+    # Aggregate consumption by resource
+    resource_usage = defaultdict(lambda: {
+        'cost': 0,
+        'consumed_hours': 0,
+        'service_types': set(),
+        'cores_used': 0
+    })
+    
+    for rec in consumption_records:
+        instance_name = rec['instance_name']
+        vm_name = instance_name.split('/')[-1] if '/' in instance_name else instance_name
+        resource_usage[vm_name]['cost'] += rec['cost']
+        if isinstance(rec['consumed_quantity'], (int, float)):
+            resource_usage[vm_name]['consumed_hours'] += float(rec['consumed_quantity'])
+        if rec['service_type']:
+            resource_usage[vm_name]['service_types'].add(rec['service_type'])
+        cores = get_vm_core_count(rec['service_type'])
+        if cores > resource_usage[vm_name]['cores_used']:
+            resource_usage[vm_name]['cores_used'] = cores
+    
+    return {
+        'reservation_id': reservation_id,
+        'cost': cost,
+        'product': product,
+        'region': region,
+        'subcategory': subcategory,
+        'period': f"{start_date} to {end_date}",
+        'reserved_size': reserved_size,
+        'reserved_cores': reserved_cores,
+        'resource_usage': dict(resource_usage),
+        'is_visible': reservation_id in visible_reservations
+    }
+
+# -------------------- NEW: VM-CENTRIC (COMPUTE-ONLY) COVERAGE -------------------- #
+
+def analyze_vm_coverage(usage_data):
+    """
+    Per-VM reservation coverage/savings for **compute-only** usage.
+    A record is included IFF:
+    - meterCategory == "Virtual Machines"
+    - consumedService == "Microsoft.Compute"
+    - unitOfMeasure contains "Hour" (e.g., "1 Hour", "Hours")
+    """
+    def is_compute(props):
+        mc = (props.get('meterCategory') or '').strip().lower()
+        cs = (props.get('consumedService') or '').strip().lower()
+        uom = (props.get('unitOfMeasure') or '').strip().lower()
+        return (mc == 'virtual machines' and cs == 'microsoft.compute' and 'hour' in uom)
+    
+    vm = defaultdict(lambda: {
+        'total_hours': 0.0,
+        'reserved_hours': 0.0,
+        'total_cost': 0.0,
+        'reserved_cost': 0.0,
+        'payg_equiv': 0.0,  # only when payGPrice is known
+        'uncovered_payg_cost': 0.0,  # only when payGPrice is known
+        'payg_known_hours': 0.0  # hours for which payGPrice was provided
+    })
+    
+    grand = {
+        'total_hours': 0.0,
+        'reserved_hours': 0.0,
+        'total_cost': 0.0,
+        'reserved_cost': 0.0,
+        'payg_equiv': 0.0,
+        'uncovered_payg_cost': 0.0,
+        'payg_known_hours': 0.0
+    }
+    
+    for record in usage_data:
+        props = record.get('properties', {})
+        if not is_compute(props):
+            continue
+        
+        instance_name = props.get('instanceName', '') or '(unknown)'
+        vm_name = instance_name.split('/')[-1] if '/' in instance_name else instance_name
+        
+        additional_info = props.get('additionalInfo', '')
+        if additional_info:
+            try:
+                info = json.loads(additional_info)
+            except Exception:
+                info = {}
+        else:
+            info = {}
+        
+        # Hours
+        qty = float(info.get('ConsumedQuantity', props.get('quantity', 0) or 0) or 0)
+        
+        # Reservation flag
+        has_reservation = 'ReservationOrderId' in info
+        
+        # Cost
+        cost = float(props.get('costInBillingCurrency', 0) or 0)
+        
+        # PAYG unit price (if available)
+        payg_price = props.get('payGPrice', None)
+        payg_known = isinstance(payg_price, (int, float)) and payg_price > 0
+        unit_payg = float(payg_price) if payg_known else None
+        
+        # Update per-VM bucket
+        vm[vm_name]['total_hours'] += qty
+        vm[vm_name]['total_cost'] += cost
+        
+        if has_reservation:
+            vm[vm_name]['reserved_hours'] += qty
+            vm[vm_name]['reserved_cost'] += cost
+        
+        if payg_known:
+            vm[vm_name]['payg_equiv'] += unit_payg * qty
+            vm[vm_name]['payg_known_hours'] += qty
+            if not has_reservation:
+                vm[vm_name]['uncovered_payg_cost'] += unit_payg * qty
+        
+        # Update grand totals
+        grand['total_hours'] += qty
+        grand['total_cost'] += cost
+        
+        if has_reservation:
+            grand['reserved_hours'] += qty
+            grand['reserved_cost'] += cost
+        
+        if payg_known:
+            grand['payg_equiv'] += unit_payg * qty
+            grand['payg_known_hours'] += qty
+            if not has_reservation:
+                grand['uncovered_payg_cost'] += unit_payg * qty
+    
+    return vm, grand
+
+# -------------------- REPORT GENERATION -------------------- #
+
+def generate_fixed_report(usage_file, from_date=None, to_date=None):
+    """Generate the corrected reservations report."""
+    print("Azure Reservations Analysis Report")
+    print("=" * 60)
+    print(f"Generated: {datetime.now()}")
+    print(f"Source: {usage_file}")
+    
+    if from_date or to_date:
+        fd = from_date.isoformat() if from_date else "—"
+        td = to_date.isoformat() if to_date else "—"
+        print(f"Filter window: {fd} to {td}")
+    print()
+    
+    usage_data = load_usage_data(usage_file)
+    usage_data, skipped = filter_usage_by_date(usage_data, from_date, to_date)
+    
+    visible_reservations, all_consumption, all_reservations_seen = analyze_reservations_fixed(usage_data)
+    
+    print("DATA COMPLETENESS CHECK")
+    print("=" * 30)
+    print(f"Reservations purchased in this period: {len(visible_reservations)}")
+    print(f"Total reservations with consumption: {len(all_reservations_seen)}")
+    
+    hidden_reservations = all_reservations_seen - set(visible_reservations.keys())
+    if hidden_reservations:
+        print(f"⚠️ Hidden reservations (purchased outside this period): {len(hidden_reservations)}")
+        for res_id in hidden_reservations:
+            print(f"  • {res_id}")
+    
+    if skipped:
+        print(f"⚠️ Records without resolvable dates skipped due to filter: {skipped}")
+    print()
+    
+    total_visible_cost = 0
+    reservation_analyses = []
+    
+    for reservation_id in sorted(all_reservations_seen):
+        consumption_records = all_consumption[reservation_id]
+        analysis = analyze_reservation_utilization(reservation_id, consumption_records, visible_reservations)
+        reservation_analyses.append(analysis)
         
         print(f"RESERVATION: {reservation_id}")
         print("=" * 50)
-        print(f"Cost: ${cost:.2f}/month")
-        print(f"Product: {product}")
-        print(f"Region: {region}")
-        print(f"Category: {subcategory}")
-        print(f"Period: {start_date} to {end_date}")
-        print()
         
-        # Track VM size groups for optimization analysis
-        vm_size = extract_vm_size(product)
-        if vm_size != 'Unknown' and 'Virtual Machines' in product:
-            vm_size_groups[f"{vm_size}_{region}"].append({
-                'id': reservation_id,
-                'cost': cost,
-                'consumed_hours': 0
-            })
-        
-        # Check for consumption
-        consumption = consumption_records.get(reservation_id, [])
-        
-        if consumption:
-            print("✅ STATUS: USED - Found consumption records")
-            
-            # Calculate total consumed for VMs
-            vm_consumed = sum(float(c.get('ConsumedQuantity', 0)) for c in consumption if 'ConsumedQuantity' in c)
-            db_consumed = len([c for c in consumption if c.get('service_type') == 'Database'])
-            
-            if vm_consumed > 0:
-                print(f"📊 Total VM Consumed Quantity: {vm_consumed:.2f} hours")
-                # Update consumed hours for optimization analysis
-                if f"{vm_size}_{region}" in vm_size_groups:
-                    for res in vm_size_groups[f"{vm_size}_{region}"]:
-                        if res['id'] == reservation_id:
-                            res['consumed_hours'] = vm_consumed
-            if db_consumed > 0:
-                print(f"📊 Database Usage Records: {db_consumed} consumption entries")
-            
-            # Find beneficiary resources
-            beneficiaries = find_beneficiary_resources(product, region, vm_records, usage_data)
-            
-            if beneficiaries:
-                print("🔍 BENEFICIARY RESOURCES:")
-                for resource_name, resource_cost, details in beneficiaries:
-                    # Extract just the VM name for cleaner display
-                    vm_name = resource_name.split('/')[-1] if '/' in resource_name else resource_name
-                    
-                    if details and 'is_discounted' in details:
-                        # Database resource with pricing details
-                        discount_status = "✅ RESERVED PRICING" if not details['is_discounted'] else "✅ DISCOUNTED"
-                        print(f"   • {vm_name}: ${resource_cost:.2f} ({discount_status})")
-                        if details['effective_price'] == details['payg_price']:
-                            print(f"     Using reserved pricing: ${details['effective_price']:.3f}/hour")
-                    
-                    elif details and 'service_types' in details:
-                        # VM resource with size analysis
-                        reservation_size = details['reservation_size']
-                        actual_sizes = details['service_types']
-                        
-                        print(f"   • {vm_name}: ${resource_cost:.2f} (uses {reservation_size} reservation)")
-                        
-                        # Analyze size relationships
-                        if len(actual_sizes) == 1:
-                            actual_size = actual_sizes[0]
-                            if actual_size != reservation_size:
-                                # Check if it's a size mismatch scenario
-                                if actual_size and reservation_size:
-                                    print(f"     ⚠️  VM uses: {actual_size} (reservation covers: {reservation_size})")
-                                    
-                                    # Try to detect partial coverage patterns
-                                    if ('16' in actual_size and '8' in reservation_size) or \
-                                       ('8' in actual_size and '4' in reservation_size) or \
-                                       ('4' in actual_size and '2' in reservation_size):
-                                        print(f"     💡 Appears to be partial coverage - consider upgrading reservation")
-                        elif len(actual_sizes) > 1:
-                            sizes_str = ", ".join(actual_sizes)
-                            print(f"     ℹ️  VM uses multiple sizes: {sizes_str}")
-                            if reservation_size not in actual_sizes:
-                                print(f"     ⚠️  None match reservation size: {reservation_size}")
-                    else:
-                        # Fallback for VMs without detailed size info
-                        print(f"   • {vm_name}: ${resource_cost:.2f} (discounted by reservation)")
-            else:
-                print("🔍 Reservation is being consumed (consumption records found)")
-                print("   ℹ️  No specific beneficiary resources identified by matching logic")
-            
-            used_count += 1
-            used_cost += cost
+        if analysis['is_visible'] and isinstance(analysis['cost'], (int, float)):
+            print(f"Cost: ${analysis['cost']:.2f}/month")
+            total_visible_cost += analysis['cost']
         else:
-            print("❌ STATUS: UNUSED - No consumption records found")
-            print(f"💰 WASTE: ${cost:.2f}/month (${cost * 12:.2f}/year)")
-            unused_count += 1
-            unused_cost += cost
+            print(f"Cost: {analysis['cost']}")
         
-        total_cost += cost
+        print(f"Product: {analysis['product']}")
+        print(f"Region: {analysis['region']}")
+        print(f"Category: {analysis['subcategory']}")
+        print(f"Period: {analysis['period']}")
+        
+        if not analysis['is_visible']:
+            print("⚠️ This reservation was purchased outside the data period")
+        
+        print()
+        print("✅ STATUS: USED - Found consumption records")
+        
+        total_cores_used = sum(res['cores_used'] for res in analysis['resource_usage'].values())
+        total_consumed_hours = sum(res['consumed_hours'] for res in analysis['resource_usage'].values())
+        
+        if analysis['reserved_cores'] > 0:
+            utilization_pct = (total_cores_used / analysis['reserved_cores']) * 100
+            print(f"📊 Core Utilization: {total_cores_used}/{analysis['reserved_cores']} cores ({utilization_pct:.1f}%)")
+        
+        print(f"📊 Total Consumed Hours: {total_consumed_hours:.2f}")
+        
+        print("🔍 BENEFICIARY RESOURCES:")
+        for vm_name, usage in analysis['resource_usage'].items():
+            service_types_str = ', '.join(sorted(usage['service_types']))
+            print(f"   • {vm_name}: ${usage['cost']:.2f}")
+            print(f"     Service Types: {service_types_str}")
+            print(f"     vCPUs: {usage['cores_used']}")
+            print(f"     Hours: {usage['consumed_hours']:.2f}")
+            
+            if analysis['reserved_cores'] > 0 and usage['cores_used'] != analysis['reserved_cores']:
+                if usage['cores_used'] < analysis['reserved_cores']:
+                    efficiency = (usage['cores_used'] / analysis['reserved_cores']) * 100
+                    print(f"     ⚠️  Using {usage['cores_used']} cores of {analysis['reserved_cores']} reserved ({efficiency:.1f}% efficient)")
+                elif usage['cores_used'] > analysis['reserved_cores']:
+                    print(f"     ⚠️  Needs {usage['cores_used']} cores but reservation only covers {analysis['reserved_cores']}")
         print()
     
-    # Optimization Analysis
-    print("OPTIMIZATION OPPORTUNITIES")
+    print("OPTIMIZATION ANALYSIS")
     print("=" * 30)
     
-    for size_region, reservations in vm_size_groups.items():
+    reservation_groups = defaultdict(list)
+    for analysis in reservation_analyses:
+        if 'VM Instance' in analysis['product'] or analysis['reserved_cores'] > 0:
+            key = f"{analysis['reserved_size']}_{analysis['region']}"
+            reservation_groups[key].append(analysis)
+    
+    for group_key, reservations in reservation_groups.items():
         if len(reservations) > 1:
-            vm_size, region = size_region.split('_', 1)
-            total_cost_group = sum(r['cost'] for r in reservations)
-            total_hours = sum(r['consumed_hours'] for r in reservations)
+            size, region = group_key.split('_', 1)
+            print(f"🔍 Multiple {size} reservations in {region}:")
             
-            print(f"🔍 Multiple reservations for {vm_size} in {region}:")
+            total_reserved_cores = 0
+            total_used_cores = 0
+            total_cost = 0
+            
             for res in reservations:
-                print(f"   • {res['id']}: ${res['cost']:.2f}/month ({res['consumed_hours']:.1f} hours)")
-            print(f"   📊 Total cost: ${total_cost_group:.2f}/month")
-            print(f"   📊 Total usage: {total_hours:.1f} hours")
-            print(f"   💡 Consider consolidating or resizing these reservations")
+                used_cores = sum(usage['cores_used'] for usage in res['resource_usage'].values())
+                reserved_cores = res['reserved_cores']
+                total_reserved_cores += reserved_cores
+                total_used_cores += used_cores
+                
+                if isinstance(res['cost'], (int, float)):
+                    total_cost += res['cost']
+                    cost_str = f"${res['cost']:.2f}/month"
+                else:
+                    cost_str = "Unknown cost"
+                
+                print(f"   • {res['reservation_id'][:8]}...: {cost_str}")
+                print(f"     Using {used_cores}/{reserved_cores} cores")
+            
+            if total_reserved_cores > 0:
+                overall_efficiency = (total_used_cores / total_reserved_cores) * 100
+                print(f"   📊 Combined: {total_used_cores}/{total_reserved_cores} cores ({overall_efficiency:.1f}% efficiency)")
+                
+                if overall_efficiency < 80:
+                    print(f"   💡 Consider consolidating or downsizing - low efficiency")
+                elif overall_efficiency > 120:
+                    print(f"   💡 Consider upsizing reservations - over-subscribed")
             print()
     
-    # Summary
-    print("SUMMARY")
-    print("=" * 20)
-    print(f"Total Reservations: {len(reservation_records)}")
-    print(f"Used Reservations: {used_count} (${used_cost:.2f}/month)")
-    print(f"Unused Reservations: {unused_count} (${unused_cost:.2f}/month)")
-    print(f"Total Cost: ${total_cost:.2f}/month (${total_cost * 12:.2f}/year)")
-    print(f"Annual Waste: ${unused_cost * 12:.2f}")
+    # -------------------- VM-centric coverage output (compute-only) -------------------- #
+    vm_stats, grand = analyze_vm_coverage(usage_data)
+    
+    print("RESERVATION BENEFIT BY VM (COMPUTE ONLY)")
+    print("=" * 40)
+    
+    header = f"{'VM Name':<30} {'Hours':>10} {'Res.Hours':>11} {'%Cov':>6} {'Est.PAYG$*':>11} {'Actual$':>9} {'Savings$*':>10}"
+    print(header)
+    print("-" * len(header))
+    
+    def vm_sort_key(item):
+        name, st = item
+        # sort by uncovered PAYG (when known), then by total hours
+        return (st['uncovered_payg_cost'], st['total_hours'])
+    
+    for name, st in sorted(vm_stats.items(), key=vm_sort_key, reverse=True):
+        total_h = st['total_hours']
+        res_h = st['reserved_hours']
+        actual = st['total_cost']
+        pct = (res_h / total_h * 100.0) if total_h > 0 else 0.0
+        
+        # Only compute Est.PAYG$ and Savings$ when payGPrice was known
+        if st['payg_known_hours'] > 0:
+            payg_equiv = st['payg_equiv']
+            savings = max(0.0, payg_equiv - actual)
+            payg_str = f"{payg_equiv:>.2f}"
+            savings_str = f"{savings:>.2f}"
+        else:
+            payg_str = "N/A"
+            savings_str = "N/A"
+        
+        print(f"{name:<30} {total_h:>10.2f} {res_h:>11.2f} {pct:>6.1f} {payg_str:>11} {actual:>9.2f} {savings_str:>10}")
+    
+    print("\n* Est.PAYG$ and Savings$ shown only where Azure provided payGPrice for the meter.\n")
+    
+    # -------------------- Overall coverage summary (compute-only) -------------------- #
+    total_h = grand['total_hours']
+    res_h = grand['reserved_hours']
+    coverage_pct = (res_h / total_h * 100.0) if total_h > 0 else 0.0
+    uncovered_hours = max(0.0, total_h - res_h)
+    
+    print("OVERALL RESERVATION COVERAGE (COMPUTE ONLY)")
+    print("=" * 40)
+    print(f"Covered Hours: {res_h:.2f} / {total_h:.2f} ({coverage_pct:.1f}%)")
+    print(f"Uncovered Hours: {uncovered_hours:.2f}")
+    print(f"Actual Billed (compute): ${grand['total_cost']:.2f}")
+    
+    if grand['payg_known_hours'] > 0:
+        total_payg_equiv = grand['payg_equiv']
+        total_actual = grand['total_cost']
+        total_savings = max(0.0, total_payg_equiv - total_actual)
+        print(f"\n📊 CALCULATED SAVINGS (where PAYG pricing available)")
+        print("-" * 40)
+        print(f"Estimated PAYG (if no RIs): ${total_payg_equiv:.2f}")
+        print(f"Calculated Savings: ${total_savings:.2f}")
+    
+    # Always show estimated savings when we have reservation costs
+    if total_visible_cost > 0:
+        print(f"\n⭐ ESTIMATED TOTAL SAVINGS")
+        print("-" * 40)
+        
+        # Calculate based on visible reservation costs and typical discounts
+        min_payg_estimate = total_visible_cost / 0.72  # 28% discount (conservative)
+        max_payg_estimate = total_visible_cost / 0.40  # 60% discount (aggressive)
+        avg_payg_estimate = (min_payg_estimate + max_payg_estimate) / 2
+        
+        min_savings = min_payg_estimate - total_visible_cost
+        max_savings = max_payg_estimate - total_visible_cost
+        avg_savings = avg_payg_estimate - total_visible_cost
+        
+        print(f"Monthly Reservation Costs: ${total_visible_cost:.2f}")
+        print(f"Estimated PAYG equivalent: ${min_payg_estimate:.2f} - ${max_payg_estimate:.2f}")
+        print(f"")
+        print(f"💰 ESTIMATED MONTHLY SAVINGS: ${min_savings:.2f} - ${max_savings:.2f}")
+        print(f"   (Average: ${avg_savings:.2f}/month)")
+        print(f"")
+        print(f"💰 ESTIMATED ANNUAL SAVINGS: ${min_savings*12:.2f} - ${max_savings*12:.2f}")
+        print(f"   (Average: ${avg_savings*12:.2f}/year)")
+        
+        # Add context about coverage
+        if coverage_pct > 0:
+            print(f"\nWith {coverage_pct:.1f}% coverage, you're effectively getting:")
+            discount_pct_min = (min_savings / min_payg_estimate) * 100
+            discount_pct_max = (max_savings / max_payg_estimate) * 100
+            print(f"• {discount_pct_min:.0f}%-{discount_pct_max:.0f}% discount on covered compute hours")
+        
+        if grand['payg_known_hours'] == 0:
+            print("\nNote: Azure didn't provide PAYG pricing in this export.")
+            print("These estimates are based on typical reservation discounts (28-60%).")
+            print("For exact savings, check Azure Portal's Reservation Utilization reports.")
+    
     print()
     
-    if unused_count > 0:
-        print("🚨 RECOMMENDATIONS:")
-        print("=" * 20)
-        print(f"1. Cancel unused reservations to save ${unused_cost * 12:.2f}/year")
-        print("2. Consider purchasing reservations for VMs currently on pay-as-you-go")
-        print("3. Review reservation sizes and regions for optimal coverage")
+    # -------------------- Final summary -------------------- #
+    print("SUMMARY")
+    print("=" * 20)
+    print(f"Total Reservations Found: {len(all_reservations_seen)}")
+    print(f"Visible in Data Period: {len(visible_reservations)}")
+    print(f"Hidden (Older Purchases): {len(hidden_reservations)}")
+    
+    if total_visible_cost > 0:
+        print(f"Visible Monthly Cost: ${total_visible_cost:.2f}")
+        print(f"Visible Annual Cost: ${total_visible_cost * 12:.2f}")
+    
+    print(f"\n⚠️  IMPORTANT: This analysis is based on consumption data only.")
+    print(f"For accurate cost optimization, obtain the complete reservation list from Azure Portal.")
+    
+    if hidden_reservations:
+        print(f"Hidden reservations represent active reservations purchased before the data period.")
     
     print("\n✅ Analysis complete!")
 
+# -------------------- CLI -------------------- #
+
+def valid_yyyy_mm_dd(s):
+    try:
+        return datetime.strptime(s, "%Y-%m-%d").date()
+    except ValueError:
+        raise argparse.ArgumentTypeError("Date must be in YYYY-MM-DD format")
+
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python3 reservations_report.py /path/to/az_usage_details.json")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Analyze Azure reservation utilization from a UsageDetails JSON export."
+    )
+    parser.add_argument("usage_file", help="Path to az_usage_details.json")
+    parser.add_argument("--from", dest="from_date", type=valid_yyyy_mm_dd,
+                       help="Start date (YYYY-MM-DD), inclusive")
+    parser.add_argument("--to", dest="to_date", type=valid_yyyy_mm_dd,
+                       help="End date (YYYY-MM-DD), inclusive")
     
-    usage_file = sys.argv[1]
-    generate_report(usage_file)
+    args = parser.parse_args()
+    
+    # Validate range order if both provided
+    if args.from_date and args.to_date and args.from_date > args.to_date:
+        print("Error: --from date cannot be after --to date")
+        sys.exit(2)
+    
+    generate_fixed_report(args.usage_file, from_date=args.from_date, to_date=args.to_date)
